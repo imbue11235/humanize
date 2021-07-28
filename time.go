@@ -147,7 +147,6 @@ func humanizeApproximateDifference(duration time.Duration) (string, error) {
 	return getHumanizationFromResult(approximation, currentLocale.Time.Approximation)
 }
 
-
 func humanizeExactDifference(duration time.Duration) (string, error) {
 	results := humantime.CalculateExactDuration(duration)
 
@@ -164,9 +163,5 @@ func humanizeExactDifference(duration time.Duration) (string, error) {
 		length++
 	}
 
-	// pop last element from output
-	last, output := output[length-1], output[:length-1]
-
-	// construct the output string with format as "1 hour, 20 minutes and 6 seconds"
-	return fmt.Sprintf("%s %s %s", strings.Join(output, ", "), currentLocale.Common.Connector, last), nil
+	return Slice(output), nil
 }
