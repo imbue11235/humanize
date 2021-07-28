@@ -1,0 +1,24 @@
+common:
+  connector: 'and'
+
+time:
+  now: 'just now'
+  future: 'in %s'
+  past: '%s ago'
+  approximation:
+    second: "[0-5] a few seconds|[6,*] %d seconds"
+    minute: "[0-1] a minute|[2,*] %d minutes"
+    hour: "[0-1] an hour|[2,*] %d hours"
+    day: "[0-1] a day|[2,*] %d days"
+    week: "[0-1] a week|[2,*] %d weeks"
+    month: "[0-1] a month|[2,*] %d months"
+    year: "[0-1] a year|[2,*] %d years"
+    decade: "[0-1] a decade|[2,*] %d decades"
+    long: "[0,*] a long time"
+  exact:
+    second: "[0-1] 1 second|[2,*] %d seconds"
+    minute: "[0-1] 1 minute|[2,*] %d minutes"
+    hour: "[0-1] 1 hour|[2,*] %d hours"
+    day: "[0-1] 1 day|[2,*] %d days"
+    month: "[0-1] 1 month|[2,*] %d months"
+    year: "[0-1] 1 year|[2,*] %d years"
