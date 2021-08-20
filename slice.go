@@ -7,13 +7,26 @@ import (
 	"github.com/imbue11235/humanize/language"
 )
 
+// Slice takes a slice of items and returns a string
+// representation of that slice.
+// Example:
+//
+//		s := humanize.Slice([]string{"One", "Two", "Three"})
+//		fmt.Print(s) => "One, Two and Three"
+//
+// Optionally a limit can be given.
+// Example:
+//
+//		s := humanize.Slice([]string{"One", "Two", "Three"}, 2)
+// 		fmt.Print(s) => "One, Two and one other"
+//
 func Slice(items []string, limits ...uint) string {
 	if len(items) == 0 {
 		return ""
 	}
 
-	// if only one item exists
-	// we should not continue with the formatting
+	// if only one item exists,
+	// we should not continue with the formatting,
 	// and just return the single item instead
 	if len(items) == 1 {
 		return items[0]
@@ -22,13 +35,17 @@ func Slice(items []string, limits ...uint) string {
 	// get translations
 	translations := manager.Locale().Slice
 
-	if len(limits) > 0 && limits[0] > 0 {
+	// if a limit is set and that limit does not exceed the length of the items,
+	// we will format the slice with a limit
+	if len(limits) > 0 && limits[0] > 0 && int(limits[0]) <= len(items) {
 		return formatSliceWithLimit(items, limits[0], translations)
 	}
 
+	// otherwise, format slice normally
 	return formatSlice(items, translations.Connector)
 }
 
+// splitSlice splits a slice into two at a given position
 func splitSlice(items []string, at int) ([]string, []string) {
 	if len(items) <= at {
 		return items, []string{}
@@ -37,6 +54,9 @@ func splitSlice(items []string, at int) ([]string, []string) {
 	return items[:at], items[at:]
 }
 
+// formatSliceWithLimit converts a slice of items into a string
+// representation, but limited to the given limit as a positive int
+// e.g.: [A, B, C, D, E] with limit 2 => "A, B and 3 others"
 func formatSliceWithLimit(items []string, limit uint, translations language.Slice) string {
 	items, rest := splitSlice(items, int(limit))
 
@@ -48,6 +68,9 @@ func formatSliceWithLimit(items []string, limit uint, translations language.Slic
 	)
 }
 
+// formatSlice converts a slice of items into a string
+// representation, separated by commas
+// e.g.: [A, B, C] => "A, B and C"
 func formatSlice(items []string, connector string) string {
 	items, rest := splitSlice(items, len(items)-1)
 

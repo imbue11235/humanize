@@ -6,13 +6,13 @@ import (
 )
 
 type Pluralizer struct {
-	one string
+	one  string
 	many string
 }
 
 func NewPluralizer(one, many string) *Pluralizer {
 	return &Pluralizer{
-		one: one,
+		one:  one,
 		many: many,
 	}
 }
@@ -34,4 +34,3 @@ func (p *Pluralizer) Pluralize(amount int) string {
 
 	return p.one
 }
-
