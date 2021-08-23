@@ -11,11 +11,11 @@ var (
 
 func init() {
 	manager = language.NewLocaleManager()
-	manager.RegisterLocale("en", en.Locale)
+	manager.RegisterLocale(en.Locale)
 }
 
-func RegisterLocale(code string, locale *language.Locale) error {
-	return manager.RegisterLocale(code, locale)
+func RegisterLocale(locale *language.Locale) error {
+	return manager.RegisterLocale(locale)
 }
 
 func SetLocale(code string) error {

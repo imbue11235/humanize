@@ -17,16 +17,16 @@ func (m *Manager) Locale() *Locale {
 	return m.currentLocale
 }
 
-func (m *Manager) RegisterLocale(code string, locale *Locale) error {
-	if _, ok := m.registeredLocales[code]; ok {
-		return fmt.Errorf("locale with code '%s' is already registered", code)
+func (m *Manager) RegisterLocale(locale *Locale) error {
+	if _, ok := m.registeredLocales[locale.Code]; ok {
+		return fmt.Errorf("locale with code '%s' is already registered", locale.Code)
 	}
 
-	m.registeredLocales[code] = locale
+	m.registeredLocales[locale.Code] = locale
 
 	// If no current language is set, we will make this the default one too
 	if m.currentLocale == nil {
-		return m.SetLocale(code)
+		return m.SetLocale(locale.Code)
 	}
 
 	return nil

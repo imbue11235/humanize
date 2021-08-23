@@ -32,7 +32,7 @@ func Slice(items []string, limits ...uint) string {
 		return items[0]
 	}
 
-	// get translations
+	// get slice translations
 	translations := manager.Locale().Slice
 
 	// if a limit is set and that limit does not exceed the length of the items,

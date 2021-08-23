@@ -5,6 +5,7 @@ import (
 )
 
 var Locale = &language.Locale{
+	Code: "en",
 	Slice: language.Slice{
 		Connector: "and",
 		Rest:      language.NewPluralizer("one other", "%d others"),

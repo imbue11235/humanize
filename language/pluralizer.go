@@ -18,13 +18,13 @@ func NewPluralizer(one, many string) *Pluralizer {
 }
 
 // applyAmountToTemplate conditionally applies the given amount
-// to the string, if it contains a digit format `%d`
-func (p *Pluralizer) applyAmountToTemplate(templateText string, amount int) string {
-	if strings.Contains(templateText, "%d") {
-		return fmt.Sprintf(templateText, amount)
+// to the string
+func (p *Pluralizer) applyAmountToTemplate(template string, amount int) string {
+	if strings.Contains(template, "%d") {
+		return fmt.Sprintf(template, amount)
 	}
 
-	return templateText
+	return template
 }
 
 func (p *Pluralizer) Pluralize(amount int) string {
