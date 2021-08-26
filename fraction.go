@@ -45,7 +45,7 @@ func round(val float64, precision int) float64 {
 }
 
 // calculateGCF calculates the greatest common factor
-// from two integers, using the euclidean algoritm
+// from two integers, using the euclidean algorithm
 // https://en.wikipedia.org/wiki/Greatest_common_divisor#Euclidean_algorithm
 func calculateGCF(a, b int) int {
 	for b != 0 {
