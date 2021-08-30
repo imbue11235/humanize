@@ -10,14 +10,25 @@ var (
 )
 
 func init() {
-	manager = language.NewLocaleManager()
-	manager.RegisterLocale(en.Locale)
+	manager = language.NewManager()
+	manager.RegisterLanguage("en", en.Language)
+	manager.SetLanguage("en")
 }
 
-func RegisterLocale(locale *language.Locale) error {
-	return manager.RegisterLocale(locale)
+// RegisterLanguage ...
+func RegisterLanguage(code string, translations language.Map) {
+	manager.RegisterLanguage(code, translations)
 }
 
-func SetLocale(code string) error {
-	return manager.SetLocale(code)
+// SetLanguage ...
+func SetLanguage(code string) error {
+	return manager.SetLanguage(code)
+}
+
+func translate(path string, args ...interface{}) string {
+	return manager.Translate(path, args...)
+}
+
+func pluralize(path string, count int) string {
+	return manager.Pluralize(path, count)
 }

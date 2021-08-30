@@ -3,8 +3,6 @@ package humanize
 import (
 	"fmt"
 	"strings"
-
-	"github.com/imbue11235/humanize/language"
 )
 
 // Slice takes a slice of items and returns a string
@@ -32,17 +30,14 @@ func Slice(items []string, limits ...uint) string {
 		return items[0]
 	}
 
-	// get slice translations
-	translations := manager.Locale().Slice
-
 	// if a limit is set and that limit does not exceed the length of the items,
 	// we will format the slice with a limit
 	if len(limits) > 0 && limits[0] > 0 && int(limits[0]) <= len(items) {
-		return formatSliceWithLimit(items, limits[0], translations)
+		return formatSliceWithLimit(items, limits[0])
 	}
 
 	// otherwise, format slice normally
-	return formatSlice(items, translations.Connector)
+	return formatSlice(items)
 }
 
 // splitSlice splits a slice into two at a given position
@@ -57,22 +52,22 @@ func splitSlice(items []string, at int) ([]string, []string) {
 // formatSliceWithLimit converts a slice of items into a string
 // representation, but limited to the given limit as a positive int
 // e.g.: [A, B, C, D, E] with limit 2 => "A, B and 3 others"
-func formatSliceWithLimit(items []string, limit uint, translations language.Slice) string {
+func formatSliceWithLimit(items []string, limit uint) string {
 	items, rest := splitSlice(items, int(limit))
 
 	return fmt.Sprintf(
 		"%s %s %s",
 		strings.Join(items, ", "),
-		translations.Connector,
-		translations.Rest.Pluralize(len(rest)),
+		translate("slice.connector"),
+		pluralize("slice.rest", len(rest)),
 	)
 }
 
 // formatSlice converts a slice of items into a string
 // representation, separated by commas
 // e.g.: [A, B, C] => "A, B and C"
-func formatSlice(items []string, connector string) string {
+func formatSlice(items []string) string {
 	items, rest := splitSlice(items, len(items)-1)
 
-	return fmt.Sprintf("%s %s %s", strings.Join(items, ", "), connector, rest[0])
+	return fmt.Sprintf("%s %s %s", strings.Join(items, ", "), translate("slice.connector"), rest[0])
 }

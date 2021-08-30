@@ -4,35 +4,34 @@ import (
 	"github.com/imbue11235/humanize/language"
 )
 
-var Locale = &language.Locale{
-	Code: "en",
-	Slice: language.Slice{
-		Connector: "and",
-		Rest:      language.NewPluralizer("one other", "%d others"),
+// Language ...
+var Language = language.Map{
+	"slice": language.Map{
+		"connector": "and",
+		"rest":      "one other|%d others",
 	},
-	Time: language.Time{
-		Now:    "just now",
-		Future: "in %s",
-		Past:   "%s ago",
-		Approximation: map[string]*language.Pluralizer{
-			"second": language.NewPluralizer("a second", "%d seconds"),
-			"minute": language.NewPluralizer("a minute", "%d minutes"),
-			"hour":   language.NewPluralizer("an hour", "%d hours"),
-			"day":    language.NewPluralizer("a day", "%d hours"),
-			"week":   language.NewPluralizer("a week", "%d weeks"),
-			"month":  language.NewPluralizer("a month", "%d months"),
-			"year":   language.NewPluralizer("a year", "%d years"),
-			"decade": language.NewPluralizer("a decade", "%d decades"),
-			"long":   language.NewPluralizer("a long time", "a long time"),
+	"time": language.Map{
+		"now":    "just now",
+		"future": "in %s",
+		"past":   "%s ago",
+		"approximation": language.Map{
+			"second": "a second|%d seconds",
+			"minute": "a minute|%d minutes",
+			"hour":   "an hour|%d hours",
+			"day":    "a day|%d days",
+			"week":   "a week|%d weeks",
+			"month":  "a month|%d months",
+			"year":   "a year|%d years",
+			"decade": "a decade|%d decades",
+			"long":   "a long time",
 		},
-		Exact: map[string]*language.Pluralizer{
-			"second": language.NewPluralizer("1 second", "%d seconds"),
-			"minute": language.NewPluralizer("1 minute", "%d minutes"),
-			"hour":   language.NewPluralizer("1 hour", "%d hours"),
-			"day":    language.NewPluralizer("1 day", "%d hours"),
-			"month":  language.NewPluralizer("1 month", "%d months"),
-			"year":   language.NewPluralizer("1 year", "%d years"),
+		"precision": language.Map{
+			"second": "1 second|%d seconds",
+			"minute": "1 minute|%d minutes",
+			"hour":   "1 hour|%d hours",
+			"day":    "1 day|%d days",
+			"month":  "1 month|%d months",
+			"year":   "1 year|%d year",
 		},
 	},
-	OrdinalStrategy: &OrdinalStrategy{},
 }

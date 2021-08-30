@@ -10,8 +10,11 @@ import (
 // value.
 // Example:
 //
-//		f := Fraction(0.1)
+//		f := humanize.Fraction(0.1)
 //		fmt.Println(f) => "1/10"
+//
+// TODO: Implement ability to detect repeating trailing decimal
+// places for more humane representations. E.g "0.3333 = 1/3"
 func Fraction(decimal float64) string {
 	precision := float64(calculatePrecision(decimal))
 	if precision == 0 {
@@ -22,8 +25,9 @@ func Fraction(decimal float64) string {
 	denominator := int(factor)
 	numerator := int(decimal * factor)
 
+	// to see if the fraction can be further reduced,
+	// we will calculate the greatest common factor
 	gcf := calculateGCF(numerator, denominator)
-
 	if gcf > 1 {
 		denominator /= gcf
 		numerator /= gcf
@@ -38,10 +42,6 @@ func Fraction(decimal float64) string {
 	}
 
 	return fmt.Sprintf("%d/%d", numerator, denominator)
-}
-
-func round(val float64, precision int) float64 {
-	return math.Round(val*(math.Pow10(precision))) / math.Pow10(precision)
 }
 
 // calculateGCF calculates the greatest common factor
@@ -61,7 +61,6 @@ func calculateGCF(a, b int) int {
 // the decimal value has
 func calculatePrecision(decimal float64) int {
 	curr, precision := 1.0, 0
-
 	for math.Round(decimal*curr)/curr != decimal {
 		curr *= 10
 		precision++

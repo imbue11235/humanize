@@ -4,35 +4,34 @@ import (
 	"github.com/imbue11235/humanize/language"
 )
 
-var Locale = &language.Locale{
-	Code: "da",
-	Slice: language.Slice{
-		Connector: "og",
-		Rest:      language.NewPluralizer("én anden", "%d andre"),
+// Language ...
+var Language = language.Map{
+	"slice": language.Map{
+		"connector": "og",
+		"rest":      "èn anden|%d andre",
 	},
-	Time: language.Time{
-		Now:    "lige nu",
-		Future: "om %s",
-		Past:   "%s siden",
-		Approximation: map[string]*language.Pluralizer{
-			"second": language.NewPluralizer("et sekund", "%d sekunder"),
-			"minute": language.NewPluralizer("et minut", "%d minutter"),
-			"hour":   language.NewPluralizer("en time", "%d timer"),
-			"day":    language.NewPluralizer("en dag", "%d dage"),
-			"week":   language.NewPluralizer("en uge", "%d uger"),
-			"month":  language.NewPluralizer("en måned", "%d måneder"),
-			"year":   language.NewPluralizer("et år", "%d år"),
-			"decade": language.NewPluralizer("et årti", "%d årtier"),
-			"long":   language.NewPluralizer("lang tid", "lang tid"),
+	"time": language.Map{
+		"now":    "lige nu",
+		"future": "om %s",
+		"past":   "%s siden",
+		"approximation": language.Map{
+			"second": "et sekund|%d sekunder",
+			"minute": "et minut|%d minutter",
+			"hour":   "en time|%d timer",
+			"day":    "en dag|%d dage",
+			"week":   "en uge|%d uger",
+			"month":  "en måned|%d måneder",
+			"year":   "et år|%d år",
+			"decade": "et årti|%d årtier",
+			"long":   "lang tid",
 		},
-		Exact: map[string]*language.Pluralizer{
-			"second": language.NewPluralizer("1 sekund", "%d sekunder"),
-			"minute": language.NewPluralizer("1 minut", "%d minutter"),
-			"hour":   language.NewPluralizer("1 time", "%d timer"),
-			"day":    language.NewPluralizer("1 dag", "%d dage"),
-			"month":  language.NewPluralizer("1 måned", "%d måneder"),
-			"year":   language.NewPluralizer("1 år", "%d år"),
+		"precision": language.Map{
+			"second": "1 sekund|%d sekunder",
+			"minute": "1 minut|%d minutter",
+			"hour":   "1 time|%d timer",
+			"day":    "1 dag|%d dage",
+			"month":  "1 måned|%d måneder",
+			"year":   "1 år|%d år",
 		},
 	},
-	OrdinalStrategy: &OrdinalStrategy{},
 }

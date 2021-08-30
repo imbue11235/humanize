@@ -6,45 +6,48 @@ import (
 	"time"
 
 	"github.com/imbue11235/humanize/humantime"
-	"github.com/imbue11235/humanize/language"
 )
 
-type humanizerFunc func(builder *TimeBuilder, duration time.Duration) (string, error)
+type humanizerFunc func(duration time.Duration) (string, error)
 
+// TimeBuilder ...
 type TimeBuilder struct {
-	translations  language.Time
 	origin        time.Time
 	humanizerFunc humanizerFunc
 }
 
-func newTimeBuilder(origin time.Time, humanizerFunc humanizerFunc) *TimeBuilder {
+// Time ...
+func Time(origin time.Time) *TimeBuilder {
 	return &TimeBuilder{
 		origin:        origin,
-		humanizerFunc: humanizerFunc,
-		translations:  manager.Locale().Time,
+		humanizerFunc: humanizeApproximateDifference,
 	}
 }
 
-func Time(origin time.Time) *TimeBuilder {
-	return newTimeBuilder(origin, humanizeApproximateDifference)
-}
-
+// ExactTime ...
 func ExactTime(origin time.Time) *TimeBuilder {
-	return newTimeBuilder(origin, humanizeExactDifference)
+	return &TimeBuilder{
+		origin:        origin,
+		humanizerFunc: humanizeExactDifference,
+	}
 }
 
+// From ...
 func (t *TimeBuilder) From(from time.Time) (string, error) {
 	return t.humanize(from, t.origin)
 }
 
+// FromNow ...
 func (t *TimeBuilder) FromNow() (string, error) {
 	return t.From(time.Now())
 }
 
+// To ...
 func (t *TimeBuilder) To(to time.Time) (string, error) {
 	return t.humanize(t.origin, to)
 }
 
+// ToNow ...
 func (t *TimeBuilder) ToNow() (string, error) {
 	return t.To(time.Now())
 }
@@ -56,10 +59,10 @@ func (t *TimeBuilder) humanize(from, to time.Time) (string, error) {
 	// if there is zero seconds in difference,
 	// we can treat it as happening right "now"
 	if difference.Seconds() == 0 {
-		return t.translations.Now, nil
+		return translate("time.now"), nil
 	}
 
-	humanization, err := t.humanizerFunc(t, difference)
+	humanization, err := t.humanizerFunc(difference)
 
 	if err != nil {
 		return "", err
@@ -67,40 +70,31 @@ func (t *TimeBuilder) humanize(from, to time.Time) (string, error) {
 
 	// if the difference is positive, it's in the future
 	if difference > 0 {
-		return fmt.Sprintf(t.translations.Future, humanization), nil
+		return translate("time.future", humanization), nil
 	}
 
 	// else it's in the past
-	return fmt.Sprintf(t.translations.Past, humanization), nil
+	return translate("time.past", humanization), nil
 }
 
-func humanizeApproximateDifference(builder *TimeBuilder, duration time.Duration) (string, error) {
+func humanizeApproximateDifference(duration time.Duration) (string, error) {
 	// find the closest approximated "time distance" from given difference
 	approximation := humantime.CalculateApproximateDuration(duration)
-
 	if approximation == nil {
 		return "", errors.New("could not calculate approximation")
 	}
 
-	text, err := builder.translations.GetApproximateTimeText(approximation.Threshold.Symbol)
-	if err != nil {
-		return "", err
-	}
-
-	return text.Pluralize(approximation.Count), err
+	path := fmt.Sprintf("time.approximation.%s", approximation.Threshold.Symbol)
+	return pluralize(path, approximation.Count), nil
 }
 
-func humanizeExactDifference(builder *TimeBuilder, duration time.Duration) (string, error) {
+func humanizeExactDifference(duration time.Duration) (string, error) {
 	results := humantime.CalculateExactDuration(duration)
 
 	var output []string
 	for _, result := range results {
-		text, err := builder.translations.GetExactTimeText(result.Threshold.Symbol)
-		if err != nil {
-			return "", err
-		}
-
-		output = append(output, text.Pluralize(result.Count))
+		path := fmt.Sprintf("time.precision.%s", result.Threshold.Symbol)
+		output = append(output, pluralize(path, result.Count))
 	}
 
 	return Slice(output), nil

@@ -2,44 +2,43 @@ package language
 
 import "fmt"
 
+// Manager ...
 type Manager struct {
-	currentLocale     *Locale
-	registeredLocales map[string]*Locale
+	currentLanguage   string
+	currentTranslator *Translator
+	translators       map[string]*Translator
 }
 
-func NewLocaleManager() *Manager {
+// NewManager ...
+func NewManager() *Manager {
 	return &Manager{
-		registeredLocales: make(map[string]*Locale),
+		translators: map[string]*Translator{},
 	}
 }
 
-func (m *Manager) Locale() *Locale {
-	return m.currentLocale
+// Translate ...
+func (m *Manager) Translate(path string, args ...interface{}) string {
+	return m.currentTranslator.Translate(path, args...)
 }
 
-func (m *Manager) RegisterLocale(locale *Locale) error {
-	if _, ok := m.registeredLocales[locale.Code]; ok {
-		return fmt.Errorf("locale with code '%s' is already registered", locale.Code)
-	}
-
-	m.registeredLocales[locale.Code] = locale
-
-	// If no current language is set, we will make this the default one too
-	if m.currentLocale == nil {
-		return m.SetLocale(locale.Code)
-	}
-
-	return nil
+// Pluralize ...
+func (m *Manager) Pluralize(path string, count int) string {
+	return m.currentTranslator.Pluralize(path, count)
 }
 
-func (m *Manager) SetLocale(code string) error {
-	registeredLocale, ok := m.registeredLocales[code]
+// RegisterLocale ...
+func (m *Manager) RegisterLanguage(code string, translations Map) {
+	m.translators[code] = NewTranslator(code, translations)
+}
 
-	if !ok {
-		return fmt.Errorf("no locale with code '%s' is registered", code)
+// SetLanguage ...
+func (m *Manager) SetLanguage(code string) error {
+	if translator, ok := m.translators[code]; ok {
+		m.currentLanguage = code
+		m.currentTranslator = translator
+
+		return nil
 	}
 
-	m.currentLocale = registeredLocale
-
-	return nil
+	return fmt.Errorf("could not find a language with code `%s`", code)
 }
