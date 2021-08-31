@@ -17,6 +17,7 @@ var approximationThresholds = []Threshold{
 	{"second", second},
 }
 
+// CalculateApproximateDuration ...
 func CalculateApproximateDuration(duration time.Duration) *Result {
 	seconds := absDuration(duration).Seconds()
 	for _, threshold := range approximationThresholds {
@@ -27,7 +28,7 @@ func CalculateApproximateDuration(duration time.Duration) *Result {
 		}
 
 		return &Result{
-			Count: int(proximity),
+			Count:     int(proximity),
 			Threshold: threshold,
 		}
 	}

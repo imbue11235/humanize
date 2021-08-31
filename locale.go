@@ -10,9 +10,15 @@ var (
 )
 
 func init() {
-	manager = language.NewManager()
-	manager.RegisterLanguage("en", en.Language)
-	manager.SetLanguage("en")
+	UseManager(language.NewManager(
+		language.WithLanguage("en", en.Language),
+		language.WithFallbackLanguage("en", en.Language),
+	))
+}
+
+// UseManager ...
+func UseManager(m *language.Manager) {
+	manager = m
 }
 
 // RegisterLanguage ...

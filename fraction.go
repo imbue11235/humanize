@@ -8,7 +8,6 @@ import (
 // Fraction takes a decimal (float) value and converts
 // it into a string representation of a fractional
 // value.
-// Example:
 //
 //		f := humanize.Fraction(0.1)
 //		fmt.Println(f) => "1/10"

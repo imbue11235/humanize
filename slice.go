@@ -7,13 +7,11 @@ import (
 
 // Slice takes a slice of items and returns a string
 // representation of that slice.
-// Example:
 //
 //		s := humanize.Slice([]string{"One", "Two", "Three"})
 //		fmt.Print(s) => "One, Two and Three"
 //
 // Optionally a limit can be given.
-// Example:
 //
 //		s := humanize.Slice([]string{"One", "Two", "Three"}, 2)
 // 		fmt.Print(s) => "One, Two and one other"

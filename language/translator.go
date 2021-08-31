@@ -11,47 +11,51 @@ const (
 )
 
 // Translator ...
-type Translator struct {
+type translator struct {
 	code         string
 	translations Map
 }
 
 // NewTranslator ...
-func NewTranslator(code string, translations Map) *Translator {
-	return &Translator{
+func newTranslator(code string, translations Map) *translator {
+	return &translator{
 		code:         code,
 		translations: translations,
 	}
 }
 
 // LanguageCode ...
-func (t *Translator) LanguageCode() string {
+func (t *translator) languageCode() string {
 	return t.code
 }
 
-func (t *Translator) getTranslation(path string) string {
-	return t.getTranslationOrDefault(path, "")
+func (t *translator) getTranslation(path string) (string, error) {
+	translation := t.get(path)
+	if translation == nil {
+		return "", fmt.Errorf("could not find translation with path `%s`", path)
+	}
+
+	if stringValue, ok := translation.(string); ok {
+		return stringValue, nil
+	}
+
+	return "", fmt.Errorf("could not cast translation to string with path `%s`", path)
 }
 
-func (t *Translator) getTranslationOrDefault(path, defaultValue string) string {
-	value := t.get(path)
-	if value == nil {
+func (t *translator) getTranslationOrDefault(path, defaultValue string) string {
+	translation, err := t.getTranslation(path)
+	if err != nil {
 		return defaultValue
 	}
 
-	if stringValue, ok := value.(string); ok {
-		return stringValue
-	}
-
-	return defaultValue
+	return translation
 }
 
-func (t *Translator) get(path string) interface{} {
+func (t *translator) get(path string) interface{} {
 	current := t.translations
 	parts := strings.Split(path, pathSeparator)
 
 	for index, part := range parts {
-
 		if index == len(parts)-1 {
 			return current[part]
 		}
@@ -63,34 +67,4 @@ func (t *Translator) get(path string) interface{} {
 	}
 
 	return current
-}
-
-// Translate ...
-func (t *Translator) Translate(path string, args ...interface{}) string {
-	translation := t.getTranslation(path)
-	if len(args) > 0 {
-		return fmt.Sprintf(translation, args...)
-	}
-
-	return translation
-}
-
-// Pluralize ...
-func (t *Translator) Pluralize(path string, count int) string {
-	translation := t.getTranslation(path)
-	parts := strings.Split(translation, pluralSeparator)
-
-	if count != 1 && len(parts) > 1 {
-		return t.applyCountToTranslation(parts[1], count)
-	}
-
-	return parts[0]
-}
-
-func (t *Translator) applyCountToTranslation(translation string, count int) string {
-	if strings.Contains(translation, "%d") {
-		return fmt.Sprintf(translation, count)
-	}
-
-	return translation
 }
