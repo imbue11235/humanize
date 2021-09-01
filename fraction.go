@@ -3,6 +3,7 @@ package humanize
 import (
 	"fmt"
 	"math"
+	"strconv"
 )
 
 // Fraction takes a decimal (float) value and converts
@@ -17,7 +18,7 @@ import (
 func Fraction(decimal float64) string {
 	precision := float64(calculatePrecision(decimal))
 	if precision == 0 {
-		return fmt.Sprintf("%0.f", decimal)
+		return strconv.FormatFloat(decimal, 'f', 0, 64)
 	}
 
 	factor := math.Pow(10, precision)
@@ -40,6 +41,12 @@ func Fraction(decimal float64) string {
 		return fmt.Sprintf("%d %d/%d", wholes, numerator, denominator)
 	}
 
+	// if wholes are negative
+	if wholes < 0 {
+		numerator -= wholes * denominator
+		return fmt.Sprintf("%d %d/%d", wholes, -numerator, denominator)
+	}
+
 	return fmt.Sprintf("%d/%d", numerator, denominator)
 }
 
@@ -59,6 +66,11 @@ func calculateGCF(a, b int) int {
 // calculatePrecision counts how many trailing decimal places
 // the decimal value has
 func calculatePrecision(decimal float64) int {
+	// if number is whole, we can't calculate precision
+	if decimal == math.Trunc(decimal) {
+		return 0
+	}
+
 	curr, precision := 1.0, 0
 	for math.Round(decimal*curr)/curr != decimal {
 		curr *= 10

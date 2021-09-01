@@ -1,6 +1,6 @@
 package humantime
 
-type Threshold struct {
-	Symbol string
-	Duration float64
+type threshold struct {
+	symbol   string
+	duration float64
 }

@@ -1,21 +1,43 @@
 package humanize_test
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
-	"github.com/imbue11235/humanize"
 	_ "github.com/imbue11235/humanize/locales/da"
 )
 
-func TestFromNow(t *testing.T) {
-	from := time.Date(2011, 11, 12, 14, 0, 0, 0, time.UTC)
-	to := time.Date(2011, 11, 12, 14, 30, 22, 0, time.UTC)
+func TestTimeFrom(t *testing.T) {
+	/*
+		tests := []struct {
+			from     string
+			to       string
+			expected string
+		}{
+			{"2021-01-01 22:00:00", "2021-01-02 22:00:00", ""},
+		}
 
-	fmt.Println(humanize.SetLanguage("en"))
-	fmt.Println(humanize.Time(from).From(to))
 
-	fmt.Println(humanize.SetLanguage("da"))
-	fmt.Println(humanize.Time(from).From(to))
+		for _, test := range tests {
+			//to := parseTime(t, test.to)
+			//from := parseTime(t, test.from)
+
+			//humanize.Time(to).From(from)
+		}*/
+
+	/*
+		fmt.Println(humanize.SetLanguage("en"))
+		fmt.Println(humanize.Time(from).From(to))
+
+		fmt.Println(humanize.SetLanguage("da"))
+		fmt.Println(humanize.Time(from).From(to))*/
+}
+
+func parseTime(t *testing.T, value string) time.Time {
+	parsed, err := time.Parse("yyyy-mm-dd hh:mm:ss", value)
+	if err != nil {
+		t.Errorf("could not parse time '%s'", value)
+	}
+
+	return parsed
 }

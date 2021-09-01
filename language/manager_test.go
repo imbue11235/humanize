@@ -5,7 +5,7 @@ import (
 )
 
 func TestTranslatorTranslate(t *testing.T) {
-	manager := createManagerInstance(Map{
+	manager := NewManager(WithLanguage("default", Map{
 		"flowers": Map{
 			"rose":   "Rose",
 			"lily":   "Lily",
@@ -17,7 +17,7 @@ func TestTranslatorTranslate(t *testing.T) {
 			"oak":   "Oak",
 		},
 		"timber": "We have %d pieces of timber",
-	})
+	}))
 
 	tests := []struct {
 		path, expected string
@@ -41,13 +41,13 @@ func TestTranslatorTranslate(t *testing.T) {
 }
 
 func TestTranslatorPluralize(t *testing.T) {
-	manager := createManagerInstance(Map{
+	manager := NewManager(WithLanguage("default", Map{
 		"dollar": "I only have 1 dollar|I have %d dollars!!!!",
 		"time": Map{
 			"minutes": "one minute|%d minutes",
 		},
 		"normal": "Everything is normal",
-	})
+	}))
 
 	tests := []struct {
 		path, expected string
@@ -67,8 +67,4 @@ func TestTranslatorPluralize(t *testing.T) {
 			t.Errorf("expected pluralization '%s', but got '%s'", test.expected, pluralization)
 		}
 	}
-}
-
-func createManagerInstance(language Map) *Manager {
-	return NewManager(WithLanguage("default", language))
 }

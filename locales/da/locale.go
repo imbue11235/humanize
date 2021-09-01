@@ -34,4 +34,15 @@ var Language = language.Map{
 			"year":   "1 år|%d år",
 		},
 	},
+	"int": language.Map{
+		"thousand":    "1 tusind|%d tusinde",
+		"million":     "1 million|%d millioner",
+		"billion":     "1 milliard|%d milliarder",
+		"trillion":    "1 billion|%d billioner",
+		"quadrillion": "1 billiard|%d billiarder",
+		"quintillion": "1 trillion|%d trillioner",
+		"sextillion":  "1 trilliard|%d trilliarder",
+		"septillion":  "1 kvadrillion|%d kvadrillioner",
+		"octillion":   "1 kvadrilliard|%d kvadrilliarder",
+	},
 }

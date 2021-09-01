@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var exactThresholds = []Threshold{
+var preciseThresholds = []threshold{
 	{"year", year},
 	{"month", month},
 	{"day", day},
@@ -14,26 +14,27 @@ var exactThresholds = []Threshold{
 	{"second", second},
 }
 
-func CalculateExactDuration(duration time.Duration) []*Result {
+// CalculatePreciseDuration ...
+func CalculatePreciseDuration(duration time.Duration) []*Result {
 	delta := absDuration(duration).Seconds()
 	var results []*Result
 
-	for _, threshold := range exactThresholds {
+	for _, threshold := range preciseThresholds {
 		if delta <= 0 {
 			break
 		}
 
 		// calculate amount of whole days/hours/months/units
-		count := math.Floor(delta / threshold.Duration)
-		delta -= count * threshold.Duration
+		count := math.Floor(delta / threshold.duration)
+		delta -= count * threshold.duration
 
 		if count == 0 {
 			continue
 		}
 
 		results = append(results, &Result{
-			Threshold: threshold,
-			Count: int(count),
+			Symbol: threshold.symbol,
+			Count:  int(count),
 		})
 	}
 

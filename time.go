@@ -28,7 +28,7 @@ func Time(origin time.Time) *TimeBuilder {
 func ExactTime(origin time.Time) *TimeBuilder {
 	return &TimeBuilder{
 		origin:        origin,
-		humanizerFunc: humanizeExactDifference,
+		humanizerFunc: humanizePreciseDifference,
 	}
 }
 
@@ -63,7 +63,6 @@ func (t *TimeBuilder) humanize(from, to time.Time) (string, error) {
 	}
 
 	humanization, err := t.humanizerFunc(difference)
-
 	if err != nil {
 		return "", err
 	}
@@ -84,16 +83,16 @@ func humanizeApproximateDifference(duration time.Duration) (string, error) {
 		return "", errors.New("could not calculate approximation")
 	}
 
-	path := fmt.Sprintf("time.approximation.%s", approximation.Threshold.Symbol)
+	path := fmt.Sprintf("time.approximation.%s", approximation.Symbol)
 	return pluralize(path, approximation.Count), nil
 }
 
-func humanizeExactDifference(duration time.Duration) (string, error) {
-	results := humantime.CalculateExactDuration(duration)
+func humanizePreciseDifference(duration time.Duration) (string, error) {
+	results := humantime.CalculatePreciseDuration(duration)
 
 	var output []string
 	for _, result := range results {
-		path := fmt.Sprintf("time.precision.%s", result.Threshold.Symbol)
+		path := fmt.Sprintf("time.precision.%s", result.Symbol)
 		output = append(output, pluralize(path, result.Count))
 	}
 

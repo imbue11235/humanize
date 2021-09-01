@@ -19,6 +19,9 @@ func TestFraction(t *testing.T) {
 		{0, "0"},
 		{1, "1"},
 		{-0.1, "-1/10"},
+		{-1.1, "-1 1/10"},
+		{-1.625, "-1 5/8"},
+		{-6.89, "-6 89/100"},
 	}
 
 	for _, test := range tests {
@@ -27,5 +30,11 @@ func TestFraction(t *testing.T) {
 		if fraction != test.expected {
 			t.Errorf("expected '%s' to be '%s'", fraction, test.expected)
 		}
+	}
+}
+
+func BenchmarkFraction(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Fraction(1.35)
 	}
 }

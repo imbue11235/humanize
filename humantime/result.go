@@ -1,6 +1,7 @@
 package humantime
 
+// Result ...
 type Result struct {
-	Threshold Threshold
-	Count     int
+	Symbol string
+	Count  int
 }

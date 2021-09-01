@@ -8,5 +8,8 @@ cover:
 test:
 	@go test ./... -v
 
+benchmark:
+	@go test ./... -bench=.
+
 doc:
 	@godoc -http=:6060

@@ -3,15 +3,16 @@ package humanize
 import (
 	"fmt"
 	"math"
+	"math/big"
 	"strconv"
 )
 
-type intRepresentation struct {
-	zeroes float64
-	text   string
+type intBreakpoint struct {
+	length float64
+	key    string
 }
 
-var ints = []intRepresentation{
+var breakpoints = []intBreakpoint{
 	{3, "thousand"},
 	{6, "million"},
 	{9, "billion"},
@@ -35,20 +36,36 @@ var ints = []intRepresentation{
 	{100, "googol"},
 }
 
+// Int ...
 func Int(value int) string {
 	length := math.Log10(float64(value))
-	if length < ints[0].zeroes {
+	if length < breakpoints[0].length {
 		return strconv.Itoa(value)
 	}
 
-	for i, in := range ints {
-		amount := length / in.zeroes
+	for i, breakpoint := range breakpoints {
+		amount := length / breakpoint.length
 
 		if amount < 1 {
-			best := i - 1
-			max := float64(value) / math.Pow(10, ints[best].zeroes)
-			return fmt.Sprintf("%s %s", strconv.FormatFloat(max, 'f', -1, 64), ints[best].text)
-			break
+			max := float64(value) / math.Pow(10, breakpoints[i-1].length)
+			return fmt.Sprintf("%s %s", strconv.FormatFloat(max, 'f', -1, 64), breakpoints[i-1].key)
+		}
+	}
+
+	return ""
+}
+
+// BigInt ...
+func BigInt(value *big.Int) string {
+	length := float64(len(value.String()) - 1)
+
+	f := new(big.Float).SetInt(value)
+	for i, breakpoint := range breakpoints {
+		amount := length / breakpoint.length
+
+		if amount < 1 {
+			max := new(big.Float).Quo(f, big.NewFloat(math.Pow(10, breakpoints[i-1].length)))
+			return fmt.Sprintf("%.0f %s", max, breakpoints[i-1].key)
 		}
 	}
 
