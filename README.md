@@ -39,7 +39,7 @@ humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
 
 Converts a string slice into a comma-separated string list with an optional limit.
 
-```
+```go
 humanize.Slice([]string{"Joe"})                                // => Joe
 humanize.Slice([]string{"Joe", "Leslie"})                      // => Joe and Leslie
 humanize.Slice([]string{"Joe", "Leslie", "Carl"})              // => Joe, Leslie and Carl
