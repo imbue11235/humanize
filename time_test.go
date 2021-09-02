@@ -1,10 +1,8 @@
-package humanize_test
+package humanize
 
 import (
 	"testing"
 	"time"
-
-	_ "github.com/imbue11235/humanize/locales/da"
 )
 
 func TestTimeFrom(t *testing.T) {
