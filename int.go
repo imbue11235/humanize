@@ -65,7 +65,7 @@ func BigInt(value *big.Int) string {
 
 		if amount < 1 {
 			max := new(big.Float).Quo(f, big.NewFloat(math.Pow(10, breakpoints[i-1].length)))
-			return fmt.Sprintf("%.0f %s", max, breakpoints[i-1].key)
+			return fmt.Sprintf("%.2f %s", max, breakpoints[i-1].key)
 		}
 	}
 
