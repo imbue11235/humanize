@@ -6,8 +6,13 @@ import (
 	"strconv"
 )
 
-const defaultFormatPrecision = 0
-const formatPrecisionLowerBound = 10
+// defines the starting precision for formatted bytes
+const defaultBytesFormatPrecision = 0
+
+// defines the lower bound that the volume of bytes would
+// have to be lower than, for a more precise definition.
+// e.g. "9.5MB" => "9.5MB", "10.5MB" => "10MB"
+const bytesFormatPrecisionMinVolume = 10
 
 var (
 	// multi-byte units
@@ -38,14 +43,13 @@ func formatBytes(bytes uint64, base float64, suffixes []string, format string) s
 		return fmt.Sprintf(format, strconv.Itoa(int(bytes)), suffixes[0])
 	}
 
-	formatPrecision := defaultFormatPrecision
-
 	index := math.Floor(math.Log(fBytes) / math.Log(base))
-	amount := base * fBytes / math.Pow(base, index+1)
+	volume := base * fBytes / math.Pow(base, index+1)
 
-	if amount < formatPrecisionLowerBound {
+	formatPrecision := defaultBytesFormatPrecision
+	if volume < bytesFormatPrecisionMinVolume {
 		formatPrecision++
 	}
 
-	return fmt.Sprintf(format, strconv.FormatFloat(amount, 'f', formatPrecision, 64), suffixes[int(index)])
+	return fmt.Sprintf(format, strconv.FormatFloat(volume, 'f', formatPrecision, 64), suffixes[int(index)])
 }

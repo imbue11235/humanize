@@ -9,7 +9,7 @@ test:
 	@go test ./... -v
 
 benchmark:
-	@go test ./... -bench=.
+	@go test ./... -bench=. -benchmem
 
 doc:
 	@godoc -http=:6060

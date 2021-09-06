@@ -34,4 +34,14 @@ var Language = language.Map{
 			"year":   "1 year|%d year",
 		},
 	},
+	"int": language.Map{
+		"K": "thousand",
+		"M": "million",
+		"B": "billion",
+		"t": "trillion",
+		"q": "quadrillion",
+		"Q": "quintillion",
+		"s": "sextillion",
+		"S": "septillion",
+	},
 }

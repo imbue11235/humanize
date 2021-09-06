@@ -60,9 +60,8 @@ func TestSlice(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		output := Slice(test.input, test.limit)
-		if output != test.expected {
-			t.Errorf("expected '%s', but got '%s'", test.expected, output)
+		if actual := Slice(test.input, test.limit); actual != test.expected {
+			t.Errorf("expected '%s', but got '%s'", test.expected, actual)
 		}
 	}
 }

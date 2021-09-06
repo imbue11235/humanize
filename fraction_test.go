@@ -25,10 +25,8 @@ func TestFraction(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		fraction := Fraction(test.input)
-
-		if fraction != test.expected {
-			t.Errorf("expected '%s' to be '%s'", fraction, test.expected)
+		if actual := Fraction(test.input); actual != test.expected {
+			t.Errorf("expected '%s' to be '%s'", actual, test.expected)
 		}
 	}
 }
