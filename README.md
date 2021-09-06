@@ -29,7 +29,7 @@ humanize.Time(time).ToNow()    // => in 60 minutes
 A more precise calculation of time, where all time units is included.
 
 ```go
-humanize.ExactTime(time).From(from) // => 1 hour, 23 minutes, 20 seconds ago
+humanize.ExactTime(time).From(from) // => 1 hour, 23 minutes and 20 seconds ago
 humanize.ExactTime(time).FromNow()  // => 3 years and 2 months ago
 humanize.ExactTime(time).To(to)     // => in 6 years and 25 days
 humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
