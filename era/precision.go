@@ -1,4 +1,4 @@
-package humantime
+package era
 
 import (
 	"math"
@@ -6,16 +6,16 @@ import (
 )
 
 var preciseThresholds = []threshold{
-	{"year", year},
-	{"month", month},
-	{"day", day},
-	{"hour", hour},
-	{"minute", minute},
-	{"second", second},
+	{SymbolYear, year},
+	{SymbolMonth, month},
+	{SymbolDay, day},
+	{SymbolHour, hour},
+	{SymbolMinute, minute},
+	{SymbolSecond, second},
 }
 
 // CalculatePreciseDuration ...
-func CalculatePreciseDuration(duration time.Duration) []*Result {
+func DurationToPreciseTimeUnits(duration time.Duration) []*Result {
 	delta := absDuration(duration).Seconds()
 	var results []*Result
 
@@ -25,16 +25,16 @@ func CalculatePreciseDuration(duration time.Duration) []*Result {
 		}
 
 		// calculate amount of whole days/hours/months/units
-		count := math.Floor(delta / threshold.duration)
-		delta -= count * threshold.duration
+		volume := math.Floor(delta / threshold.duration.Seconds())
+		delta -= volume * threshold.duration.Seconds()
 
-		if count == 0 {
+		if volume == 0 {
 			continue
 		}
 
 		results = append(results, &Result{
 			Symbol: threshold.symbol,
-			Count:  int(count),
+			Volume: int(volume),
 		})
 	}
 

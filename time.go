@@ -1,26 +1,24 @@
 package humanize
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
-	"github.com/imbue11235/humanize/humantime"
+	"github.com/imbue11235/humanize/era"
 )
 
-type humanizerFunc func(duration time.Duration) (string, error)
+type timeHumanizerFunc func(from, to time.Time) string
 
 // TimeBuilder ...
 type TimeBuilder struct {
 	origin        time.Time
-	humanizerFunc humanizerFunc
+	timeHumanizer timeHumanizerFunc
 }
 
 // Time ...
 func Time(origin time.Time) *TimeBuilder {
 	return &TimeBuilder{
 		origin:        origin,
-		humanizerFunc: humanizeApproximateDifference,
+		timeHumanizer: humanizeEstimation,
 	}
 }
 
@@ -28,73 +26,62 @@ func Time(origin time.Time) *TimeBuilder {
 func ExactTime(origin time.Time) *TimeBuilder {
 	return &TimeBuilder{
 		origin:        origin,
-		humanizerFunc: humanizePreciseDifference,
+		timeHumanizer: humanizeDifference,
 	}
 }
 
 // From ...
-func (t *TimeBuilder) From(from time.Time) (string, error) {
+func (t *TimeBuilder) From(from time.Time) string {
 	return t.humanize(from, t.origin)
 }
 
 // FromNow ...
-func (t *TimeBuilder) FromNow() (string, error) {
+func (t *TimeBuilder) FromNow() string {
 	return t.From(time.Now())
 }
 
 // To ...
-func (t *TimeBuilder) To(to time.Time) (string, error) {
+func (t *TimeBuilder) To(to time.Time) string {
 	return t.humanize(t.origin, to)
 }
 
 // ToNow ...
-func (t *TimeBuilder) ToNow() (string, error) {
+func (t *TimeBuilder) ToNow() string {
 	return t.To(time.Now())
 }
 
-func (t *TimeBuilder) humanize(from, to time.Time) (string, error) {
-	// find the difference between given times
-	difference := to.Sub(from)
+// normalizeTimezone ensures that from and to time are in the same
+// timezone by converting one to the others timezone if needed
+func (t *TimeBuilder) normalizeTimezone(from, to time.Time) (time.Time, time.Time) {
+	if from.Location() != to.Location() {
+		from.In(to.Location())
+	}
 
+	return from, to
+}
+
+func (t *TimeBuilder) humanize(from, to time.Time) string {
 	// if there is zero seconds in difference,
 	// we can treat it as happening right "now"
-	if difference.Seconds() == 0 {
-		return translate("time.now"), nil
+	if to.Equal(from) {
+		return translate("time.now")
 	}
 
-	humanization, err := t.humanizerFunc(difference)
-	if err != nil {
-		return "", err
-	}
+	humanization := t.timeHumanizer(t.normalizeTimezone(from, to))
 
 	// if the difference is positive, it's in the future
-	if difference > 0 {
-		return translate("time.future", humanization), nil
+	if to.After(from) {
+		return translate("time.future", humanization)
 	}
 
 	// else it's in the past
-	return translate("time.past", humanization), nil
+	return translate("time.past", humanization)
 }
 
-func humanizeApproximateDifference(duration time.Duration) (string, error) {
-	// find the closest approximated "time distance" from given difference
-	approximation := humantime.CalculateApproximateDuration(duration)
-	if approximation == nil {
-		return "", errors.New("could not calculate approximation")
-	}
-
-	path := fmt.Sprintf("time.approximation.%s", approximation.Symbol)
-	return pluralize(path, approximation.Count), nil
+func humanizeEstimation(from, to time.Time) string {
+	return Duration(to.Sub(from))
 }
 
-func humanizePreciseDifference(duration time.Duration) (string, error) {
-	results := humantime.CalculatePreciseDuration(duration)
-
-	var output []string
-	for _, result := range results {
-		path := fmt.Sprintf("time.precision.%s", result.Symbol)
-		output = append(output, pluralize(path, result.Count))
-	}
-
-	return Slice(output), nil
+func humanizeDifference(from, to time.Time) string {
+	return concatResults("time.precision", era.Difference(from, to))
 }

@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestTranslatorTranslate(t *testing.T) {
+func TestManagerTranslate(t *testing.T) {
 	manager := NewManager(WithLanguage("default", Map{
 		"flowers": Map{
 			"rose":   "Rose",
@@ -40,7 +40,7 @@ func TestTranslatorTranslate(t *testing.T) {
 	}
 }
 
-func TestTranslatorPluralize(t *testing.T) {
+func TestManagerPluralize(t *testing.T) {
 	manager := NewManager(WithLanguage("default", Map{
 		"dollar": "I only have 1 dollar|I have %d dollars!!!!",
 		"time": Map{

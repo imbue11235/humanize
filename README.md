@@ -17,6 +17,12 @@ Converts a time difference (duration) into a more readable format
 This is a more loose calculation of time, where only the highest unit of time is prioritized.
 E.g. `1 hour 20 minutes` becomes `1 hour` and `1 hour 55 minutes` becomes `2 hours` etc. 
 
+##### From
+```go
+humanize.Time(a).From(b)
+```
+
+
 ```go
 humanize.Time(time).From(from) // => 1 year ago
 humanize.Time(time).FromNow()  // => 20 minutes ago

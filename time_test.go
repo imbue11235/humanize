@@ -5,6 +5,50 @@ import (
 	"time"
 )
 
+type timeTest struct {
+	t1, t2, expected string
+}
+
+func runTimeTest(t *testing.T, tests []timeTest, handler func(a time.Time, b time.Time) string) {
+	for _, test := range tests {
+		if actual := handler(parseTime(t, test.t1), parseTime(t, test.t2)); actual != test.expected {
+			t.Errorf("expected '%s' but got '%s'", test.expected, actual)
+		}
+	}
+}
+
+func TestTimeTo(t *testing.T) {
+	tests := []timeTest{
+		{"2021-01-01T22:00:00+00:00", "2021-01-01T22:00:00+00:00", "just now"},
+		{"2021-01-01T22:00:00+00:00", "2021-01-02T22:00:00+00:00", "in a day"},
+		{"2021-01-02T22:00:00+00:00", "2021-01-01T22:00:00+00:00", "a day ago"},
+		{"2019-01-01T22:00:00+00:00", "2021-01-01T22:00:00+00:00", "in 2 years"},
+		{"2021-01-02T22:00:00+00:00", "2021-01-24T22:00:00+00:00", "in 3 weeks"},
+		{"2021-01-02T22:00:00+00:00", "2021-05-05T22:00:00+00:00", "in 4 months"},
+		{"2021-01-02T22:00:00+00:00", "2065-05-05T22:00:00+00:00", "in a long time"},
+		{"2021-01-02T22:00:00+00:00", "2035-05-05T22:00:00+00:00", "in a decade"},
+	}
+
+	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
+		return Time(t1).To(t2)
+	})
+}
+
+func TestExactTimeTo(t *testing.T) {
+	tests := []timeTest{
+		{"2021-01-01T22:00:00+00:00", "2021-01-01T22:00:00+00:00", "just now"},
+		{"2021-01-01T22:00:00+00:00", "2021-01-02T22:00:00+00:00", "in 1 day"},
+		{"2021-01-01T22:00:00+00:00", "2021-01-05T23:20:21+00:00", "in 4 days, 1 hour, 20 minutes and 21 seconds"},
+		{"2020-01-01T22:00:00+00:00", "2021-01-01T22:00:00+00:00", "in 1 year"},
+		{"2019-01-01T22:00:00+00:00", "2020-01-01T22:00:00+00:00", "in 1 year"},
+		{"2021-01-02T22:00:00+00:00", "2022-05-05T22:00:00+00:00", "in 1 year, 4 months and 3 days"},
+	}
+
+	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
+		return ExactTime(t1).To(t2)
+	})
+}
+
 func TestTimeFrom(t *testing.T) {
 	/*
 		tests := []struct {
@@ -32,7 +76,7 @@ func TestTimeFrom(t *testing.T) {
 }
 
 func parseTime(t *testing.T, value string) time.Time {
-	parsed, err := time.Parse("yyyy-mm-dd hh:mm:ss", value)
+	parsed, err := time.Parse(time.RFC3339, value)
 	if err != nil {
 		t.Errorf("could not parse time '%s'", value)
 	}

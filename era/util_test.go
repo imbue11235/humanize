@@ -1,4 +1,4 @@
-package humantime
+package era
 
 import (
 	"testing"

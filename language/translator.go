@@ -24,11 +24,6 @@ func newTranslator(code string, translations Map) *translator {
 	}
 }
 
-// LanguageCode ...
-func (t *translator) languageCode() string {
-	return t.code
-}
-
 func (t *translator) getTranslation(path string) (string, error) {
 	translation := t.get(path)
 	if translation == nil {
