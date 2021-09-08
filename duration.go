@@ -24,10 +24,6 @@ func ExactDuration(duration time.Duration) string {
 func concatResults(path string, results []*era.Result) string {
 	var output []string
 	for _, result := range results {
-		if result.Volume == 0 {
-			continue
-		}
-
 		path := fmt.Sprintf("%s.%s", path, result.Symbol)
 		output = append(output, pluralize(path, result.Volume))
 	}
