@@ -33,8 +33,7 @@ func TestManagerTranslate(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		translation := manager.Translate(test.path, test.args...)
-		if test.expected != translation {
+		if translation := manager.Translate(test.path, test.args...); test.expected != translation {
 			t.Errorf("expected translation '%s', but got '%s'", test.expected, translation)
 		}
 	}
@@ -62,8 +61,7 @@ func TestManagerPluralize(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		pluralization := manager.Pluralize(test.path, test.amount)
-		if test.expected != pluralization {
+		if pluralization := manager.Pluralize(test.path, test.amount); test.expected != pluralization {
 			t.Errorf("expected pluralization '%s', but got '%s'", test.expected, pluralization)
 		}
 	}

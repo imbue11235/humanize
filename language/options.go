@@ -6,12 +6,12 @@ type Option interface {
 }
 
 // LanguageOption ...
-type LanguageOption struct {
+type RegisterLanguageOption struct {
 	code         string
 	translations Map
 }
 
-func (o *LanguageOption) apply(m *Manager) {
+func (o *RegisterLanguageOption) apply(m *Manager) {
 	m.RegisterLanguage(o.code, o.translations)
 	m.SetLanguage(o.code)
 
@@ -23,8 +23,8 @@ func (o *LanguageOption) apply(m *Manager) {
 }
 
 // WithInitialLanguage ...
-func WithLanguage(code string, translations Map) *LanguageOption {
-	return &LanguageOption{code, translations}
+func WithLanguage(code string, translations Map) *RegisterLanguageOption {
+	return &RegisterLanguageOption{code, translations}
 }
 
 // FallbackLanguageOption ...

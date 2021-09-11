@@ -1,12 +1,18 @@
 # humanize [![Test Status](https://github.com/imbue11235/humanize/workflows/Go/badge.svg)](https://github.com/imbue11235/humanize/actions?query=workflow:Go) [![codecov](https://codecov.io/gh/imbue11235/humanize/branch/main/graph/badge.svg?token=XTJ42655U1)](https://codecov.io/gh/imbue11235/humanize) [![Go Reference](https://pkg.go.dev/badge/github.com/imbue11235/humanize.svg)](https://pkg.go.dev/github.com/imbue11235/humanize)
 
-## Installation
+Humanize is a collection of utility functions, for humanizing different data input.
+
+## 🛠 Installation
+
+Make sure to have Go installed (Version `1.16` or higher).
+
+Install `humanize` with `go get`:
 
 ```sh
-$ go get github.com/imbue11235/humanize
+$ go get -u github.com/imbue11235/humanize
 ```
 
-## Usage
+## 📖 Documentation
 
 ### Time
 
@@ -42,6 +48,10 @@ humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
 ```
 
 ### Slice
+
+```go
+fmt.Printf("I went to the zoo with %s", humanize.Slice([]string{"Noah", "Marc"})) // => I went to the zoo with Noah and Marc
+```
 
 Converts a string slice into a comma-separated string list with an optional limit.
 
