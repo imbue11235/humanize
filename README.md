@@ -56,7 +56,7 @@ fmt.Printf("I went to the zoo with %s", humanize.Slice([]string{"Noah", "Marc"})
 ```
 
 <details>
-    <summary>__🌩 Examples of usage__</summary>
+    <summary markdown="span">Examples of usage ✨</summary>
     
     ```go
     humanize.Slice([]string{"Joe"})                                // => Joe
