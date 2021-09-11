@@ -1,6 +1,6 @@
 # humanize [![Test Status](https://github.com/imbue11235/humanize/workflows/Go/badge.svg)](https://github.com/imbue11235/humanize/actions?query=workflow:Go) [![codecov](https://codecov.io/gh/imbue11235/humanize/branch/main/graph/badge.svg?token=XTJ42655U1)](https://codecov.io/gh/imbue11235/humanize) [![Go Reference](https://pkg.go.dev/badge/github.com/imbue11235/humanize.svg)](https://pkg.go.dev/github.com/imbue11235/humanize)
 
-Humanize is a collection of utility functions, for humanizing different data input.
+A collection of utility functions, for humanizing different data input.
 
 ## 🛠  Installation
 
@@ -55,13 +55,15 @@ Converts a string slice into a comma-separated string list with an optional limi
 fmt.Printf("I went to the zoo with %s", humanize.Slice([]string{"Noah", "Marc"})) // => I went to the zoo with Noah and Marc
 ```
 
-Examples of usage and output:
-
-```go
-humanize.Slice([]string{"Joe"})                                // => Joe
-humanize.Slice([]string{"Joe", "Leslie"})                      // => Joe and Leslie
-humanize.Slice([]string{"Joe", "Leslie", "Carl"})              // => Joe, Leslie and Carl
-humanize.Slice([]string{"Joe", "Leslie", "Carl"}, 2)           // => Joe, Leslie and one other
-humanize.Slice([]string{"Joe", "Leslie", "Carl", "Yvonne"}, 2) // => Joe, Leslie and 2 others
-humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Leslie
-```
+<details>
+    <summary>__🌩 Examples of usage__</summary>
+    
+    ```go
+    humanize.Slice([]string{"Joe"})                                // => Joe
+    humanize.Slice([]string{"Joe", "Leslie"})                      // => Joe and Leslie
+    humanize.Slice([]string{"Joe", "Leslie", "Carl"})              // => Joe, Leslie and Carl
+    humanize.Slice([]string{"Joe", "Leslie", "Carl"}, 2)           // => Joe, Leslie and one other
+    humanize.Slice([]string{"Joe", "Leslie", "Carl", "Yvonne"}, 2) // => Joe, Leslie and 2 others
+    humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Leslie
+    ```
+</details>
