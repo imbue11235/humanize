@@ -2,7 +2,7 @@
 
 Humanize is a collection of utility functions, for humanizing different data input.
 
-## 🛠 Installation
+## 🛠  Installation
 
 Make sure to have Go installed (Version `1.16` or higher).
 
@@ -12,7 +12,7 @@ Install `humanize` with `go get`:
 $ go get -u github.com/imbue11235/humanize
 ```
 
-## 📖 Documentation
+## 📖  Documentation
 
 ### Time
 
@@ -49,11 +49,13 @@ humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
 
 ### Slice
 
+Converts a string slice into a comma-separated string list with an optional limit.
+
 ```go
 fmt.Printf("I went to the zoo with %s", humanize.Slice([]string{"Noah", "Marc"})) // => I went to the zoo with Noah and Marc
 ```
 
-Converts a string slice into a comma-separated string list with an optional limit.
+Examples of usage and output:
 
 ```go
 humanize.Slice([]string{"Joe"})                                // => Joe
