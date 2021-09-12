@@ -130,7 +130,7 @@ To register your own custom locale, simply specify a `locale.Map` mimicking the 
 as the built-in locales. See [the english locale map](locale/en/locale.go) for additional details.
 
 ```go
-humanize.RegisterLocale("mylocale", language.Map{...})
+humanize.RegisterLocale("mylocale", locale.Map{...})
 ```
 
 #### Fallback locale
