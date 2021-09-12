@@ -75,8 +75,6 @@ humanize.ExactTime(time).FromNow()  // => 3 years and 2 months ago
 humanize.ExactTime(time).To(to)     // => in 6 years and 25 days
 humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
 ```
-<br/>
-
 ---
 
 <br/>
