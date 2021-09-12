@@ -96,3 +96,40 @@ humanize.Slice([]string{"Joe", "Leslie", "Carl", "Yvonne"}, 2) // => Joe, Leslie
 humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Leslie
 ```
 </details>
+
+### Localization
+
+`humanize` comes prepacked with localization support, which are easily switchable on the fly.
+
+#### Switching languages
+
+To use a different locale with `humanize`, simply import it.
+It auto-registers with the locale manager, and are ready to be used.
+
+```go
+import (
+	"github.com/imbue11235/humanize"
+	_ "github.com/imbue11235/humanize/locales/da"
+)
+
+func main() {
+	names := []string{"Hans", "Viggo", "Klaus"}
+	
+	fmt.Printf("Seen by %s", humanize.Slice(names, 2)) // => Seen by Hans, Viggo and one other
+	
+	humanize.SetLanguage("da")
+	
+	fmt.Printf("Set af %s", humanize.Slice(names, 2)) // => Set af Hans, Viggo og en anden
+}
+```
+
+#### Registering custom languages
+
+To register your own custom language, simply specify a `language.Map` mimicking the same key-value format
+as the built-in languages. See [the english language map](locales/en/locale.go) for additional details.
+
+```go
+humanize.RegisterLanguage('my-language', language.Map{...})
+```
+
+#### Fallback languages
