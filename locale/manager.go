@@ -1,4 +1,4 @@
-package language
+package locale
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 
 // Manager ...
 type Manager struct {
-	currentLanguage    string
+	currentLocale      string
 	currentTranslator  *translator
 	fallbackTranslator *translator
 	fallbackString     string
@@ -71,12 +71,12 @@ func (m *Manager) applyCountToTranslation(translation string, count int) string 
 }
 
 // RegisterLocale ...
-func (m *Manager) RegisterLanguage(code string, translations Map) {
+func (m *Manager) RegisterLocale(code string, translations Map) {
 	m.translators[code] = newTranslator(code, translations)
 }
 
-// SetFallbackLanguage ...
-func (m *Manager) SetFallbackLanguage(code string) error {
+// SetFallbackLocale ...
+func (m *Manager) SetFallbackLocale(code string) error {
 	if translator, ok := m.translators[code]; ok {
 		m.fallbackTranslator = translator
 
@@ -86,10 +86,10 @@ func (m *Manager) SetFallbackLanguage(code string) error {
 	return fmt.Errorf("could not find a language with code `%s`", code)
 }
 
-// SetLanguage ...
-func (m *Manager) SetLanguage(code string) error {
+// SetLocale ...
+func (m *Manager) SetLocale(code string) error {
 	if translator, ok := m.translators[code]; ok {
-		m.currentLanguage = code
+		m.currentLocale = code
 		m.currentTranslator = translator
 
 		return nil

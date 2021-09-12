@@ -1,20 +1,19 @@
 package da
 
 import (
-	"github.com/imbue11235/humanize/language"
+	locales "github.com/imbue11235/humanize/locale"
 )
 
-// Language ...
-var Language = language.Map{
-	"slice": language.Map{
+var locale = locales.Map{
+	"slice": locales.Map{
 		"connector": "og",
 		"rest":      "èn anden|%d andre",
 	},
-	"time": language.Map{
+	"time": locales.Map{
 		"now":    "lige nu",
 		"future": "om %s",
 		"past":   "%s siden",
-		"estimation": language.Map{
+		"estimation": locales.Map{
 			"s": "et sekund|%d sekunder",
 			"m": "et minut|%d minutter",
 			"h": "en time|%d timer",
@@ -25,7 +24,7 @@ var Language = language.Map{
 			"D": "et årti|%d årtier",
 			"l": "lang tid",
 		},
-		"precision": language.Map{
+		"precision": locales.Map{
 			"s": "1 sekund|%d sekunder",
 			"m": "1 minut|%d minutter",
 			"h": "1 time|%d timer",
@@ -34,7 +33,7 @@ var Language = language.Map{
 			"y": "1 år|%d år",
 		},
 	},
-	"int": language.Map{
+	"int": locales.Map{
 		"K": "tusind|tusinde",
 		"M": "million|millioner",
 		"B": "milliard|milliarder",

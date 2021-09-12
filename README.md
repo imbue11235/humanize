@@ -101,7 +101,7 @@ humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Les
 
 `humanize` comes prepacked with localization support, which are easily switchable on the fly.
 
-#### Switching languages
+#### Switching locales
 
 To use a different locale with `humanize`, simply import it.
 It auto-registers with the locale manager, and are ready to be used.
@@ -109,7 +109,7 @@ It auto-registers with the locale manager, and are ready to be used.
 ```go
 import (
 	"github.com/imbue11235/humanize"
-	_ "github.com/imbue11235/humanize/locales/da"
+	_ "github.com/imbue11235/humanize/locale/da"
 )
 
 func main() {
@@ -117,19 +117,20 @@ func main() {
 	
 	fmt.Printf("Seen by %s", humanize.Slice(names, 2)) // => Seen by Hans, Viggo and one other
 	
-	humanize.SetLanguage("da")
+	// switch the locale
+	humanize.SetLocale("da")
 	
 	fmt.Printf("Set af %s", humanize.Slice(names, 2)) // => Set af Hans, Viggo og en anden
 }
 ```
 
-#### Registering custom languages
+#### Registering custom locale
 
-To register your own custom language, simply specify a `language.Map` mimicking the same key-value format
-as the built-in languages. See [the english language map](locales/en/locale.go) for additional details.
+To register your own custom locale, simply specify a `locale.Map` mimicking the same key-value format
+as the built-in locales. See [the english locale map](locale/en/locale.go) for additional details.
 
 ```go
-humanize.RegisterLanguage('my-language', language.Map{...})
+humanize.RegisterLocale("mylocale", language.Map{...})
 ```
 
-#### Fallback languages
+#### Fallback locale

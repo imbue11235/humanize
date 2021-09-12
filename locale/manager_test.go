@@ -1,11 +1,11 @@
-package language
+package locale
 
 import (
 	"testing"
 )
 
 func TestManagerTranslate(t *testing.T) {
-	manager := NewManager(WithLanguage("default", Map{
+	manager := NewManager(WithLocale("default", Map{
 		"flowers": Map{
 			"rose":   "Rose",
 			"lily":   "Lily",
@@ -40,7 +40,7 @@ func TestManagerTranslate(t *testing.T) {
 }
 
 func TestManagerPluralize(t *testing.T) {
-	manager := NewManager(WithLanguage("default", Map{
+	manager := NewManager(WithLocale("default", Map{
 		"dollar": "I only have 1 dollar|I have %d dollars!!!!",
 		"time": Map{
 			"minutes": "one minute|%d minutes",

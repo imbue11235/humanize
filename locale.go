@@ -1,34 +1,34 @@
 package humanize
 
 import (
-	"github.com/imbue11235/humanize/language"
-	"github.com/imbue11235/humanize/locales/en"
+	"github.com/imbue11235/humanize/locale"
+	"github.com/imbue11235/humanize/locale/en"
 )
 
 var (
-	manager *language.Manager
+	manager *locale.Manager
 )
 
 func init() {
-	UseManager(language.NewManager(
-		language.WithLanguage("en", en.Language),
-		language.WithFallbackLanguage("en", en.Language),
+	UseManager(locale.NewManager(
+		locale.WithLocale("en", en.Locale),
+		locale.WithFallbackLocale("en", en.Locale),
 	))
 }
 
 // UseManager ...
-func UseManager(m *language.Manager) {
+func UseManager(m *locale.Manager) {
 	manager = m
 }
 
-// RegisterLanguage ...
-func RegisterLanguage(code string, translations language.Map) {
-	manager.RegisterLanguage(code, translations)
+// RegisterLocale ...
+func RegisterLocale(code string, translations locale.Map) {
+	manager.RegisterLocale(code, translations)
 }
 
-// SetLanguage ...
-func SetLanguage(code string) error {
-	return manager.SetLanguage(code)
+// SetLocale ...
+func SetLocale(code string) error {
+	return manager.SetLocale(code)
 }
 
 func translate(path string, args ...interface{}) string {
