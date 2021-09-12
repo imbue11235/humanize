@@ -1,6 +1,6 @@
 # humanize [![Test Status](https://github.com/imbue11235/humanize/workflows/Go/badge.svg)](https://github.com/imbue11235/humanize/actions?query=workflow:Go) [![codecov](https://codecov.io/gh/imbue11235/humanize/branch/main/graph/badge.svg?token=XTJ42655U1)](https://codecov.io/gh/imbue11235/humanize) [![Go Reference](https://pkg.go.dev/badge/github.com/imbue11235/humanize.svg)](https://pkg.go.dev/github.com/imbue11235/humanize)
 
-A collection of utility functions, with [built-in localization](#built-in-locales), for humanizing various types of data input.
+> A collection of utility functions, with [built-in localization](#built-in-locales), for humanizing various types of data input.
 
 ## 🛠  Installation
 
@@ -86,7 +86,7 @@ fmt.Printf("I went to the zoo with %s", humanize.Slice([]string{"Noah", "Marc"})
 ```
 
 <details>
-<summary markdown="span">Examples of usage ✨</summary>
+<summary>Examples of usage ✨</summary>
 
 ```go
 humanize.Slice([]string{"Joe"})                                // => Joe
@@ -113,7 +113,7 @@ fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The si
 ```
 
 <details>
-<summary markdown="span">Examples of usage ✨</summary>
+<summary>Examples of usage ✨</summary>
 
 ```go
 
@@ -129,7 +129,7 @@ fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => 
 ```
 
 <details>
-<summary markdown="span">Examples of usage ✨</summary>
+<summary>Examples of usage ✨</summary>
 
 ```go
 
@@ -145,7 +145,7 @@ fmt.Printf("Dockerfile | %s", humanize.ShortFormBinaryBytes(1000000000000)) // =
 ```
 
 <details>
-<summary markdown="span">Examples of usage ✨</summary>
+<summary>Examples of usage ✨</summary>
 
 ```go
 
@@ -161,7 +161,7 @@ fmt.Printf("You can have %s of the cake", humanize.Fraction(0.25)) // => You can
 ```
 
 <details>
-<summary markdown="span">Examples of usage ✨</summary>
+<summary>Examples of usage ✨</summary>
 
 ```go
 
