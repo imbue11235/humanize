@@ -100,6 +100,8 @@ humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Les
 ```
 </details>
 
+<br/>
+
 ## 🌍 Localization
 
 `humanize` comes prepacked with localization support, which are easily switchable on the fly.
