@@ -1,6 +1,6 @@
 # humanize [![Test Status](https://github.com/imbue11235/humanize/workflows/Go/badge.svg)](https://github.com/imbue11235/humanize/actions?query=workflow:Go) [![codecov](https://codecov.io/gh/imbue11235/humanize/branch/main/graph/badge.svg?token=XTJ42655U1)](https://codecov.io/gh/imbue11235/humanize) [![Go Reference](https://pkg.go.dev/badge/github.com/imbue11235/humanize.svg)](https://pkg.go.dev/github.com/imbue11235/humanize)
 
-A collection of utility functions, with built-in localization, for humanizing various types of data input.
+A collection of utility functions, with [built-in localization](#built-in-locales), for humanizing various types of data input.
 
 ## 🛠  Installation
 
@@ -12,7 +12,7 @@ Install `humanize` with `go get`:
 $ go get -u github.com/imbue11235/humanize
 ```
 
-## 📖  Documentation
+## 💻  Usage
 
 ### Humanizing time
 
@@ -97,7 +97,7 @@ humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Les
 ```
 </details>
 
-### Localization
+## 🌍 Localization
 
 `humanize` comes prepacked with localization support, which are easily switchable on the fly.
 
@@ -134,3 +134,16 @@ humanize.RegisterLocale("mylocale", locale.Map{...})
 ```
 
 #### Fallback locale
+
+#### Built-in locales
+
+Currently, the following locales are included in the `humanize` package:
+
+- [x] English
+- [x] Danish
+- [ ] Arabic
+
+#### Contributing locales
+
+If you find your language is not on the list, and you want to add it, please [submit a PR](https://github.com/imbue11235/humanize/pulls).
+It would be greatly appreciated and help the package become even more usable across languages.
