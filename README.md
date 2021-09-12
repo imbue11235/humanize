@@ -100,6 +100,60 @@ humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Les
 ```
 </details>
 
+---
+
+### Humanizing bytes
+
+Transforms bytes into the closest related multi-byte unit (MB, GB etc.)
+
+#### Bytes
+
+Uses the SI prefixes (powers of `10`, e.g. `1000b = 1kB`) for converting the bytes into their human-readable representation.
+
+```go
+fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The size of 'cats.jpg' is 2,5 MB 
+```
+
+<details>
+<summary markdown="span">Examples of usage ✨</summary>
+
+```go
+
+```
+</details>
+
+#### Binary bytes
+
+Uses the binary system (powers of `2`, e.g. `1024b = 1KiB`) for converting the bytes into their human-readable representation.
+
+<details>
+<summary markdown="span">Examples of usage ✨</summary>
+
+```go
+
+```
+</details>
+
+```go
+fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => The size of 'cats.jpg' is 2,4 MiB
+```
+
+#### Short-form Binary Bytes
+
+Using the same system as [binary bytes](#binary-bytes), sometimes you want a more short, GNU-like format.
+
+```go
+fmt.Printf("Dockerfile | %s", humanize.ShortFormBinaryBytes(1000000000000)) // => Dockerfile | 931G
+```
+
+<details>
+<summary markdown="span">Examples of usage ✨</summary>
+
+```go
+
+```
+</details>
+
 <br/>
 
 ## 🌍 Localization
@@ -125,7 +179,7 @@ func main() {
 	// switch the locale
 	humanize.SetLocale("da")
 	
-	fmt.Printf("Set af %s", humanize.Slice(names, 2)) // => Set af Hans, Viggo og en anden
+	fmt.Printf("Set af %s", humanize.Slice(names, 2)) // => Set af Hans, Viggo og én anden
 }
 ```
 
