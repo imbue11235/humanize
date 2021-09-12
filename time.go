@@ -1,6 +1,7 @@
 package humanize
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/imbue11235/humanize/era"
@@ -28,6 +29,20 @@ func ExactTime(origin time.Time) *TimeBuilder {
 		origin:        origin,
 		timeHumanizer: humanizeDifference,
 	}
+}
+
+// Duration ...
+func Duration(duration time.Duration) string {
+	// find the closest estimated "time distance" from given difference
+	estimation := era.DurationToEstimation(duration)
+
+	path := fmt.Sprintf("time.estimation.%s", estimation.Symbol)
+	return pluralize(path, estimation.Volume)
+}
+
+// ExactDuration ...
+func ExactDuration(duration time.Duration) string {
+	return concatResults("time.precision", era.DurationToPreciseTimeUnits(duration))
 }
 
 // From ...
@@ -84,4 +99,13 @@ func humanizeEstimation(from, to time.Time) string {
 
 func humanizeDifference(from, to time.Time) string {
 	return concatResults("time.precision", era.Difference(from, to))
+}
+
+func concatResults(path string, results []*era.Result) string {
+	var output []string
+	for _, result := range results {
+		output = append(output, pluralize(fmt.Sprintf("%s.%s", path, result.Symbol), result.Volume))
+	}
+
+	return Slice(output)
 }

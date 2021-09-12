@@ -9,7 +9,11 @@ import (
 var suffixes = []string{"K", "M", "B", "t", "q", "Q", "s", "S", "o"}
 
 // Int ...
-func Int(value int64) string {
+func Int(value uint64) string {
+	if value < 1000 {
+		return strconv.FormatUint(value, 10)
+	}
+
 	volume, suffix := deriveVolumeAndSuffix(value)
 
 	formatPrecision := 0
@@ -24,7 +28,7 @@ func Int(value int64) string {
 	)
 }
 
-func deriveVolumeAndSuffix(value int64) (float64, string) {
+func deriveVolumeAndSuffix(value uint64) (float64, string) {
 	fValue := float64(value)
 	decimal := math.RoundToEven(math.Log10(fValue))
 	power := math.Floor(decimal / 3)

@@ -13,8 +13,6 @@ import (
 //		f := humanize.Fraction(0.1)
 //		fmt.Println(f) => "1/10"
 //
-// TODO: Implement ability to detect repeating trailing decimal
-// places for more humane representations. E.g "0.3333 = 1/3"
 func Fraction(decimal float64) string {
 	precision := float64(calculatePrecision(decimal))
 	if precision == 0 {

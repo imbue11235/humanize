@@ -57,7 +57,7 @@ fmt.Printf("It will happen %s", humanize.Time(a).To(b)) // => It will happen in 
 
 ##### To now
 
-A utility function like [From now](#from-now), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
+A utility function like [FromNow](#from-now), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
 
 ```go
 a := time.Parse(..., "2021-05-05 22:10:00")
@@ -76,8 +76,6 @@ humanize.ExactTime(time).To(to)     // => in 6 years and 25 days
 humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
 ```
 ---
-
-<br/>
 
 ### Humanizing slices
 
@@ -102,16 +100,16 @@ humanize.Slice([]string{"Joe", "Leslie"}, 2)                   // => Joe and Les
 
 ---
 
-### Humanizing bytes
+### Humanizing sizes
 
-Transforms bytes into the closest related multi-byte unit (MB, GB etc.)
+Transforms byte-sizes into the closest related multi-byte unit size (MB, GB etc.)
 
 #### Bytes
 
 Uses the SI prefixes (powers of `10`, e.g. `1000b = 1kB`) for converting the bytes into their human-readable representation.
 
 ```go
-fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The size of 'cats.jpg' is 2,5 MB 
+fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The size of 'cats.jpg' is 2.5 MB 
 ```
 
 <details>
@@ -126,6 +124,10 @@ fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The si
 
 Uses the binary system (powers of `2`, e.g. `1024b = 1KiB`) for converting the bytes into their human-readable representation.
 
+```go
+fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => The size of 'dogs.jpg' is 2.4 MiB
+```
+
 <details>
 <summary markdown="span">Examples of usage ✨</summary>
 
@@ -133,10 +135,6 @@ Uses the binary system (powers of `2`, e.g. `1024b = 1KiB`) for converting the b
 
 ```
 </details>
-
-```go
-fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => The size of 'cats.jpg' is 2,4 MiB
-```
 
 #### Short-form Binary Bytes
 
@@ -154,7 +152,21 @@ fmt.Printf("Dockerfile | %s", humanize.ShortFormBinaryBytes(1000000000000)) // =
 ```
 </details>
 
-<br/>
+### Humanizing fractions
+
+Transforms a float value into a formatted human-readable fraction
+
+```go
+fmt.Printf("You can have %s of the cake", humanize.Fraction(0.25)) // => You can have 1/4 of the cake
+```
+
+<details>
+<summary markdown="span">Examples of usage ✨</summary>
+
+```go
+
+```
+</details>
 
 ## 🌍 Localization
 
@@ -197,11 +209,28 @@ humanize.RegisterLocale("mylocale", locale.Map{...})
 
 Currently, the following locales are included in the `humanize` package:
 
-- [x] English
-- [x] Danish
-- [ ] Arabic
+- English
+- Danish
 
 #### Contributing locales
 
 If you find your language is not on the list, and you want to add it, please [submit a PR](https://github.com/imbue11235/humanize/pulls).
 It would be greatly appreciated and help the package become even more usable across languages.
+
+List of missing locales:
+
+- [ ] Arabic
+- [ ] Dutch
+- [ ] Finnish
+- [ ] French
+- [ ] German
+- [ ] Italian
+- [ ] Japanese
+- [ ] Korean
+- [ ] Mandarin Chinese
+- [ ] Norwegian
+- [ ] Russian
+- [ ] Spanish
+- [ ] Swedish
+- [ ] Vietnamese
+- [ ] Add your own

@@ -6,9 +6,12 @@ import (
 
 func TestInt(t *testing.T) {
 	tests := []struct {
-		input    int64
+		input    uint64
 		expected string
 	}{
+		{0, "0"},
+		{5, "5"},
+		{999, "999"},
 		{1000, "1 thousand"},
 		{100000, "100 thousand"},
 		{125000, "125 thousand"},
