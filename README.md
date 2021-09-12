@@ -234,3 +234,7 @@ List of missing locales:
 - [ ] Swedish
 - [ ] Vietnamese
 - [ ] Add your own
+
+## 📜 License
+
+This project is licensed under the [MIT license](LICENSE).
