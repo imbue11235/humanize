@@ -18,6 +18,7 @@ $ go get -u github.com/imbue11235/humanize
 
 Takes two time instances, and presents the difference in a human-readable format.
 
+---
 #### Estimated time
 
 This is a more loose calculation of time, where only the highest unit of time is prioritized.
@@ -34,7 +35,7 @@ b := time.Parse(..., "2021-02-01")
 fmt.Printf("It happened almost %s", humanize.Time(a).From(b)) // => It happened almost a year ago
 ```
 
-#### From now
+##### From now
 
 This is a utility function, which is like calling `Time(a).From(b)`, but where `b` is automatically set to `time.Now()`
 
@@ -44,7 +45,7 @@ a := time.Parse(..., "2021-05-05")
 fmt.Printf("The file was created %s", humanize.Time(a).FromNow()) // => The file was created 5 days ago
 ```
 
-#### To
+##### To
 
 The same as [From](#from), but the opposite time difference.
 
@@ -55,7 +56,7 @@ b := time.Parse(..., "2021-02-01")
 fmt.Printf("It will happen %s", humanize.Time(a).To(b)) // => It will happen in a year
 ```
 
-#### To now
+##### To now
 
 A utility function like [From now](#from-now), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
 
@@ -65,6 +66,7 @@ a := time.Parse(..., "2021-05-05 22:10:00")
 fmt.Printf("The plane will take off in %s", humanize.Time(a).ToNow()) // => The plane will take off in a minute
 ```
 
+---
 #### Precise time
 
 A more precise calculation of time, where all time units is included.
@@ -75,6 +77,7 @@ humanize.ExactTime(time).FromNow()  // => 3 years and 2 months ago
 humanize.ExactTime(time).To(to)     // => in 6 years and 25 days
 humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
 ```
+<br/>
 
 ### Humanizing slices
 
@@ -123,6 +126,7 @@ func main() {
 	fmt.Printf("Set af %s", humanize.Slice(names, 2)) // => Set af Hans, Viggo og en anden
 }
 ```
+<br/>
 
 #### Registering custom locale
 
@@ -132,8 +136,10 @@ as the built-in locales. See [the english locale map](locale/en/locale.go) for a
 ```go
 humanize.RegisterLocale("mylocale", locale.Map{...})
 ```
+<br/>
 
 #### Fallback locale
+<br/>
 
 #### Built-in locales
 
@@ -142,6 +148,8 @@ Currently, the following locales are included in the `humanize` package:
 - [x] English
 - [x] Danish
 - [ ] Arabic
+
+<br/>
 
 #### Contributing locales
 
