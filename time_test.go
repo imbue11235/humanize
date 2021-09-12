@@ -27,10 +27,22 @@ func TestTimeTo(t *testing.T) {
 		{"2021-01-02T22:00:00+00:00", "2021-05-05T22:00:00+00:00", "in 4 months"},
 		{"2021-01-02T22:00:00+00:00", "2065-05-05T22:00:00+00:00", "in a long time"},
 		{"2021-01-02T22:00:00+00:00", "2035-05-05T22:00:00+00:00", "in a decade"},
+		{"2020-01-01T22:00:00+00:00", "2021-02-01T22:00:00+00:00", "a year ago"},
 	}
 
 	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
 		return Time(t1).To(t2)
+	})
+}
+
+func TestTimeFrom(t *testing.T) {
+	tests := []timeTest{
+		{"2020-01-01T22:00:00+00:00", "2021-02-01T22:00:00+00:00", "a year ago"},
+		{"2021-05-05T22:00:00+00:00", "2021-05-10T22:00:00+00:00", "5 days ago"},
+	}
+
+	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
+		return Time(t1).From(t2)
 	})
 }
 
@@ -47,32 +59,6 @@ func TestExactTimeTo(t *testing.T) {
 	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
 		return ExactTime(t1).To(t2)
 	})
-}
-
-func TestTimeFrom(t *testing.T) {
-	/*
-		tests := []struct {
-			from     string
-			to       string
-			expected string
-		}{
-			{"2021-01-01 22:00:00", "2021-01-02 22:00:00", ""},
-		}
-
-
-		for _, test := range tests {
-			//to := parseTime(t, test.to)
-			//from := parseTime(t, test.from)
-
-			//humanize.Time(to).From(from)
-		}*/
-
-	/*
-		fmt.Println(humanize.SetLanguage("en"))
-		fmt.Println(humanize.Time(from).From(to))
-
-		fmt.Println(humanize.SetLanguage("da"))
-		fmt.Println(humanize.Time(from).From(to))*/
 }
 
 func parseTime(t *testing.T, value string) time.Time {
