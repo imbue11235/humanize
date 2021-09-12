@@ -176,6 +176,7 @@ fmt.Printf("You can have %s of the cake", humanize.Fraction(0.25)) // => You can
 
 To use a different locale with `humanize`, simply import it.
 It auto-registers with the locale manager, and are ready to be used.
+To view a list of currently available locales, see [built-in locales](#built-in-locales).
 
 ```go
 import (
@@ -209,15 +210,15 @@ humanize.RegisterLocale("mylocale", locale.Map{...})
 
 Currently, the following locales are included in the `humanize` package:
 
-- English
-- Danish
+- [English](locale/en/locale.go)
+- [Danish](locale/da/locale.go)
 
 #### Contributing locales
 
 If you find your language is not on the list, and you want to add it, please [submit a PR](https://github.com/imbue11235/humanize/pulls).
 It would be greatly appreciated and help the package become even more usable across languages.
 
-List of missing locales:
+List of wanted locales:
 
 - [ ] Arabic
 - [ ] Dutch
