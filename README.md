@@ -211,6 +211,28 @@ humanize.FormatFuzzyText("app-id", strings.Title)     // => App Id
 ```
 </details>
 
+---
+
+### Humanizing numbers
+
+Converts small to larger number into a shorter form of the number
+
+#### Int
+
+Converts an integer into a readable string representation, rounding the volume and using the [names of large numbers](https://en.wikipedia.org/wiki/Names_of_large_numbers) as a suffix.
+
+```go
+fmt.Printf("I have %s followers", humanize.Int(1589035)) // => I have 1.6 million followers
+```
+
+#### Int with suffix
+
+Does the same as [Int](#int) but returns the suffix identifier, rather than the fully translated suffix. E.g. `million = M`
+
+```go
+fmt.Printf("I have $%s on my bank account", humanize.IntWithSuffix(785030)) // => I have $785K on my bank account
+```
+
 ## 🌍 Localization
 
 `humanize` comes prepacked with localization support, which are easily switchable on the fly.

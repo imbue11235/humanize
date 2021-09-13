@@ -6,10 +6,19 @@ import (
 	"strconv"
 )
 
-var suffixes = []string{"K", "M", "B", "t", "q", "Q", "s", "S", "o"}
+var suffixes = []string{"K", "M", "B", "T", "Q", "Qi", "Sx", "Sp", "O"}
 
 // Int ...
 func Int(value uint64) string {
+	return formatInt(value, true)
+}
+
+// IntWithSuffix ...
+func IntWithSuffix(value uint64) string {
+	return formatInt(value, false)
+}
+
+func formatInt(value uint64, translateSuffix bool) string {
 	if value < 1000 {
 		return strconv.FormatUint(value, 10)
 	}
@@ -21,17 +30,33 @@ func Int(value uint64) string {
 		formatPrecision++
 	}
 
+	if translateSuffix {
+		return fmt.Sprintf(
+			"%s %s",
+			strconv.FormatFloat(volume, 'f', formatPrecision, 64),
+			pluralize(fmt.Sprintf("int.%s", suffix), int(volume)),
+		)
+	}
+
 	return fmt.Sprintf(
-		"%s %s",
+		"%s%s",
 		strconv.FormatFloat(volume, 'f', formatPrecision, 64),
-		pluralize(fmt.Sprintf("int.%s", suffix), int(volume)),
+		suffix,
 	)
 }
 
 func deriveVolumeAndSuffix(value uint64) (float64, string) {
 	fValue := float64(value)
-	decimal := math.RoundToEven(math.Log10(fValue))
-	power := math.Floor(decimal / 3)
+	whole, frac := math.Modf(math.Log10(fValue))
+
+	// workaround: when numbers get really large, the precision gets worse
+	// we end up with edge cases where 1 quadrillion resolves as 1000 trillion
+	// instead, because of the fraction being 0.9999...
+	if 1-frac < 0.0001 {
+		whole++
+	}
+
+	power := math.Floor(whole / 3)
 	volume := fValue / math.Pow(10, 3*power)
 
 	return truncFloat(volume, 1), suffixes[int(power)-1]
