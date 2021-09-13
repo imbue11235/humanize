@@ -6,14 +6,14 @@ type Symbol string
 // Second ...
 const (
 	SymbolSecond Symbol = "s"
-	SymbolMinute        = "m"
-	SymbolHour          = "h"
-	SymbolDay           = "d"
-	SymbolWeek          = "w"
-	SymbolMonth         = "M"
-	SymbolYear          = "y"
-	SymbolDecade        = "D"
-	SymbolLong          = "l"
+	SymbolMinute Symbol = "m"
+	SymbolHour   Symbol = "h"
+	SymbolDay    Symbol = "d"
+	SymbolWeek   Symbol = "w"
+	SymbolMonth  Symbol = "M"
+	SymbolYear   Symbol = "y"
+	SymbolDecade Symbol = "D"
+	SymbolLong   Symbol = "l"
 )
 
 // String ...

@@ -3,5 +3,5 @@ package da
 import "github.com/imbue11235/humanize"
 
 func init() {
-	humanize.RegisterLocale("da", locale)
+	humanize.RegisterLocale("da", Locale)
 }

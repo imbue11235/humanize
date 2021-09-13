@@ -30,9 +30,11 @@ func NewManager(options ...Option) *Manager {
 
 func (m *Manager) getTranslationOrFallback(path string) string {
 	translation, err := m.currentTranslator.getTranslation(path)
+
 	if err != nil {
-		// at this point, we will just fall back to a default value of an empty string
-		// as no suitable translation was found
+		// at this point, we will try to use the fallback translator
+		// and as a last option, falling back to the default fallback string
+		// if everything else fails
 		return m.fallbackTranslator.getTranslationOrDefault(path, m.fallbackString)
 	}
 
@@ -71,8 +73,14 @@ func (m *Manager) applyCountToTranslation(translation string, count int) string 
 }
 
 // RegisterLocale ...
-func (m *Manager) RegisterLocale(code string, translations Map) {
-	m.translators[code] = newTranslator(code, translations)
+func (m *Manager) RegisterLocale(code string, translations Map) error {
+	if _, ok := m.translators[code]; !ok {
+		m.translators[code] = newTranslator(code, translations)
+
+		return nil
+	}
+
+	return fmt.Errorf("a locale with code `%s` already exists", code)
 }
 
 // SetFallbackLocale ...
@@ -83,7 +91,7 @@ func (m *Manager) SetFallbackLocale(code string) error {
 		return nil
 	}
 
-	return fmt.Errorf("could not find a language with code `%s`", code)
+	return fmt.Errorf("could not find a locale with code `%s`", code)
 }
 
 // SetLocale ...
@@ -95,5 +103,5 @@ func (m *Manager) SetLocale(code string) error {
 		return nil
 	}
 
-	return fmt.Errorf("could not find a language with code `%s`", code)
+	return fmt.Errorf("could not find a locale with code `%s`", code)
 }

@@ -152,6 +152,8 @@ fmt.Printf("Dockerfile | %s", humanize.ShortFormBinaryBytes(1000000000000)) // =
 ```
 </details>
 
+---
+
 ### Humanizing fractions
 
 Transforms a float value into a formatted human-readable fraction
@@ -167,6 +169,41 @@ fmt.Printf("You can have %s of the cake", humanize.Fraction(0.25)) // => You can
 
 ```
 </details>
+
+---
+
+### Humanizing fuzzy text
+
+Sometimes, being able to print out information to the user, directly from a data structure, a key 
+in a JSON object or similar, is nice, instead of redefining it all, word for word.
+
+#### Sentence
+
+Formats a fuzzy text as a common sentence, capitalizing the first letter of the first word, and lower-casing the rest.
+
+```go
+fmt.Print(humanize.Sentence("some-!!@@----Wierd_____format")) // => Some wierd format
+```
+
+#### Title
+
+Formats a fuzzy text as a sentence in title case, capitalizing the first letter oof every word
+
+```go
+fmt.Printf("Please supply your %s", humanize.Title("credit_card_number")) // => Please supply your Credit Card Number
+```
+
+#### Custom format
+
+Extracts words from a fuzzy text and constructs a string from the words, using the provided formatter on every extracted word.
+
+```go
+formatter := func(index int, word string) string {
+	return strings.ToUpperCase(word)
+}
+
+fmt.Printf("The receipt contains your %s", humanize.FormatWords("customer__id", formatter)) // => The receipt contains your CUSTOMER ID
+```
 
 ## 🌍 Localization
 

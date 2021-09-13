@@ -10,10 +10,7 @@ var (
 )
 
 func init() {
-	UseManager(locale.NewManager(
-		locale.WithLocale("en", en.Locale),
-		locale.WithFallbackLocale("en", en.Locale),
-	))
+	UseManager(locale.NewManager(locale.WithLocale("en", en.Locale)))
 }
 
 // UseManager ...
@@ -22,8 +19,8 @@ func UseManager(m *locale.Manager) {
 }
 
 // RegisterLocale ...
-func RegisterLocale(code string, translations locale.Map) {
-	manager.RegisterLocale(code, translations)
+func RegisterLocale(code string, translations locale.Map) error {
+	return manager.RegisterLocale(code, translations)
 }
 
 // SetLocale ...
