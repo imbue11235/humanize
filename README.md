@@ -227,7 +227,7 @@ fmt.Printf("I have %s followers", humanize.Int(1589035)) // => I have 1.6 millio
 
 #### Int with suffix
 
-Does the same as [Int](#int) but returns the suffix identifier, rather than the fully translated suffix. E.g. `million = M`
+Does the same as [Int](#int), but returns the suffix identifier, rather than the fully translated suffix. E.g. `million = M`
 
 ```go
 fmt.Printf("I have $%s on my bank account", humanize.IntWithSuffix(785030)) // => I have $785K on my bank account

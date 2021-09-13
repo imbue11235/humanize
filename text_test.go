@@ -25,6 +25,11 @@ func TestFormatFuzzyText(t *testing.T) {
 			"Some Text Here",
 			strings.Title,
 		},
+		{
+			"1_2_3",
+			"1 2 3",
+			"invalid formatter",
+		},
 	}
 
 	for _, test := range tests {

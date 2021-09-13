@@ -34,7 +34,7 @@ func TestManagerTranslate(t *testing.T) {
 
 	for _, test := range tests {
 		if translation := manager.Translate(test.path, test.args...); test.expected != translation {
-			t.Errorf("expected translation '%s', but got '%s'", test.expected, translation)
+			t.Errorf("expected translation `%s`, but got `%s`", test.expected, translation)
 		}
 	}
 }
@@ -62,7 +62,24 @@ func TestManagerPluralize(t *testing.T) {
 
 	for _, test := range tests {
 		if pluralization := manager.Pluralize(test.path, test.amount); test.expected != pluralization {
-			t.Errorf("expected pluralization '%s', but got '%s'", test.expected, pluralization)
+			t.Errorf("expected pluralization `%s`, but got `%s`", test.expected, pluralization)
 		}
+	}
+}
+
+func TestManagerSetLocale(t *testing.T) {
+	manager := NewManager(
+		WithLocale("1", Map{}),
+		WithLocale("2", Map{}),
+	)
+
+	if manager.currentLocale != "1" {
+		t.Error("expected current locale to be `1`")
+	}
+
+	manager.SetLocale("2")
+
+	if manager.currentLocale != "2" {
+		t.Error("expected current locale to be `2`")
 	}
 }
