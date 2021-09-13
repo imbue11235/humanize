@@ -10,7 +10,7 @@ import (
 // capitalizing the first letter of the first word, and
 // lower-casing the rest
 //
-//		s := humanize.Sentence("some_random-sentence")
+//		s := humanize.FuzzyText("some_random-sentence")
 //		fmt.Print(s) => "Some random sentence"
 //
 func FuzzyText(input string) string {
@@ -27,7 +27,7 @@ func FuzzyText(input string) string {
 // a string from the words, using the provided formatter on every
 // extracted word.
 //
-//		s:= humanize.FormatWords("some_random-sentence", strings.ToUpper)
+//		s:= humanize.FormatFuzzyText("some_random-sentence", strings.ToUpper)
 //		fmt.Print(s) => "SOME RANDOM SENTENCE"
 //
 func FormatFuzzyText(input string, formatter interface{}) string {
