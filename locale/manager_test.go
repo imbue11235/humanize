@@ -74,12 +74,12 @@ func TestManagerSetLocale(t *testing.T) {
 	)
 
 	if manager.currentLocale != "1" {
-		t.Error("expected current locale to be `1`")
+		t.Errorf("expected current locale to be `1`, but it was `%s`", manager.currentLocale)
 	}
 
 	manager.SetLocale("2")
 
 	if manager.currentLocale != "2" {
-		t.Error("expected current locale to be `2`")
+		t.Errorf("expected current locale to be `2`, but it was `%s`", manager.currentLocale)
 	}
 }

@@ -13,7 +13,11 @@ type RegisterLocaleOption struct {
 
 func (o *RegisterLocaleOption) apply(m *Manager) {
 	m.RegisterLocale(o.code, o.translations)
-	m.SetLocale(o.code)
+
+	// set this as default locale, if none is set
+	if m.currentTranslator == nil {
+		m.SetLocale(o.code)
+	}
 
 	// fallback will be set to this language
 	// if it's not already set
