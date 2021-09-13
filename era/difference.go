@@ -5,11 +5,11 @@ import (
 )
 
 var (
-	differenceUnits   = []int{0, 12, 32, 24, 60, 60}
+	differenceUnits   = []int{60, 60, 24, 32, 12, 0}
 	differenceSymbols = []Symbol{SymbolYear, SymbolMonth, SymbolDay, SymbolHour, SymbolMinute, SymbolSecond}
 )
 
-// Difference
+// Difference ...
 func Difference(from, to time.Time) []*Result {
 	return convertToResults(difference(from, to))
 }
@@ -29,18 +29,21 @@ func difference(from, to time.Time) []int {
 
 		if differences[i] < 0 {
 			differences[i] += differenceUnits[i]
-			differences[i-1] -= 1
+			differences[i+1] -= 1
 
 			// if it's days, we need to
 			// calculate how many days are in the month
-			if i == 2 {
+			if i == 3 {
 				date := time.Date(from.Year(), from.Month(), differenceUnits[i], 0, 0, 0, 0, from.Location())
 				differences[i] -= date.Day()
 			}
 		}
 	}
 
-	return differences
+	// reversing slice, as we are calculating them
+	// in order of 'secs, mins, hours etc.', but
+	// want them returned as 'years, months, days etc.'
+	return reverse(differences)
 }
 
 func convertToResults(differences []int) []*Result {
@@ -59,9 +62,18 @@ func convertToResults(differences []int) []*Result {
 	return results
 }
 
+func reverse(a []int) []int {
+	for i := len(a)/2 - 1; i >= 0; i-- {
+		o := len(a) - 1 - i
+		a[i], a[o] = a[o], a[i]
+	}
+
+	return a
+}
+
 func deriveTimeMetrics(t time.Time) []int {
 	y, m, d := t.Date()
 	h, mm, s := t.Clock()
 
-	return []int{y, int(m), d, h, mm, s}
+	return []int{s, mm, h, d, int(m), y}
 }

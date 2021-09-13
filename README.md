@@ -65,9 +65,26 @@ a := time.Parse(..., "2021-05-05 22:10:00")
 fmt.Printf("The plane will take off in %s", humanize.Time(a).ToNow()) // => The plane will take off in a minute
 ```
 
-#### Precise time
+#### Exact time
 
 A more precise calculation of time, where all time units is included.
+
+##### From
+
+Same as [From](#from), but using exact time to calculate the difference between the two time instances
+
+```go
+a := time.Parse(..., "2020-01-01 22:00:05")
+b := time.Parse(..., "2021-02-01 02:50:22")
+
+fmt.Printf("It happened almost %s", humanize.Time(a).From(b)) // => It happened almost a year ago
+```
+
+##### From now
+
+##### To
+
+##### To now
 
 ```go
 humanize.ExactTime(time).From(from) // => 1 hour, 23 minutes and 20 seconds ago
@@ -215,7 +232,7 @@ humanize.FormatFuzzyText("app-id", strings.Title)     // => App Id
 
 ### Humanizing numbers
 
-Converts small to larger number into a shorter form of the number
+Converting small or larger numbers into a shorter form of the number to a human-friendly text representation
 
 #### Int
 

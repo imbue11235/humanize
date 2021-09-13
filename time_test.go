@@ -39,6 +39,7 @@ func TestTimeFrom(t *testing.T) {
 	tests := []timeTest{
 		{"2020-01-01T22:00:00+00:00", "2021-02-01T22:00:00+00:00", "a year ago"},
 		{"2021-05-05T22:00:00+00:00", "2021-05-10T22:00:00+00:00", "5 days ago"},
+		{"2016-01-01T00:00:00+00:00", "2018-05-01T00:00:00+00:00", "2 years ago"},
 	}
 
 	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
@@ -58,6 +59,17 @@ func TestExactTimeTo(t *testing.T) {
 
 	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
 		return ExactTime(t1).To(t2)
+	})
+}
+
+func TestExactTimeFrom(t *testing.T) {
+	tests := []timeTest{
+		{"2020-01-01T22:05:00+00:00", "2021-02-01T02:50:22+00:00", "1 year, 1 month, 4 hours, 45 minutes and 22 seconds ago"},
+		{"2016-01-01T00:00:00+00:00", "2018-05-01T00:00:00+00:00", "2 years and 4 months ago"},
+	}
+
+	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {
+		return ExactTime(t1).From(t2)
 	})
 }
 
