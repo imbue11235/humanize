@@ -2,6 +2,7 @@ package era
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"testing"
 	"time"
@@ -20,6 +21,7 @@ func TestDurationToPreciseTimeUnits(t *testing.T) {
 		{month, "1M"},
 		{year, "1y"},
 		{120 * year, "120y"},
+		{time.Duration(math.NaN()), ""},
 	}
 
 	for _, test := range tests {

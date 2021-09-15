@@ -1,6 +1,7 @@
 package era
 
 import (
+	"math"
 	"testing"
 	"time"
 )
@@ -26,6 +27,7 @@ func TestDurationToEstimation(t *testing.T) {
 		{11 * 12 * 30 * 24 * time.Hour, SymbolDecade, 1},
 		{9 * 12 * 30 * 24 * time.Hour, SymbolDecade, 1},
 		{5 * 10 * 12 * 30 * 24 * time.Hour, SymbolLong, 1},
+		{time.Duration(math.NaN()), SymbolSecond, 0},
 	}
 
 	for _, test := range tests {

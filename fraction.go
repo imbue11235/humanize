@@ -14,6 +14,10 @@ import (
 //		fmt.Println(f) => "1/10"
 //
 func Fraction(decimal float64) string {
+	if math.IsNaN(decimal) {
+		return "NaN"
+	}
+
 	precision := float64(calculatePrecision(decimal))
 	if precision == 0 {
 		return strconv.FormatFloat(decimal, 'f', 0, 64)

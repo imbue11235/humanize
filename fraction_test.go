@@ -1,6 +1,7 @@
 package humanize
 
 import (
+	"math"
 	"testing"
 )
 
@@ -23,6 +24,7 @@ func TestFraction(t *testing.T) {
 		{-1.1, "-1 1/10"},
 		{-1.625, "-1 5/8"},
 		{-6.89, "-6 89/100"},
+		{math.NaN(), "NaN"},
 	}
 
 	for _, test := range tests {

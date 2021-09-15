@@ -1,6 +1,8 @@
 package humanize
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestTruncFloat(t *testing.T) {
 	tests := []struct {
