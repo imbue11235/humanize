@@ -19,7 +19,7 @@ var estimationThresholds = []threshold{
 	{SymbolSecond, second},
 }
 
-// ApproximateDuration
+// DurationToEstimation ...
 func DurationToEstimation(duration time.Duration) *Result {
 	delta := absDuration(duration).Seconds()
 

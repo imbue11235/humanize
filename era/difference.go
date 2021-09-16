@@ -14,27 +14,27 @@ func Difference(from, to time.Time) []*Result {
 	return convertToResults(difference(from, to))
 }
 
-func difference(from, to time.Time) []int {
+func difference(a, b time.Time) []int {
 	// reverse times if necessary
-	if from.After(to) {
-		from, to = to, from
+	if a.After(b) {
+		a, b = b, a
 	}
 
-	fromMetrics := deriveTimeMetrics(from)
-	toMetrics := deriveTimeMetrics(to)
+	aMetrics := deriveTimeMetrics(a)
+	bMetrics := deriveTimeMetrics(b)
 
-	differences := make([]int, len(fromMetrics))
+	differences := make([]int, len(aMetrics))
 	for i := range differences {
-		differences[i] = toMetrics[i] - fromMetrics[i]
+		differences[i] += bMetrics[i] - aMetrics[i]
 
 		if differences[i] < 0 {
 			differences[i] += differenceUnits[i]
-			differences[i+1] -= 1
+			differences[i+1]--
 
 			// if it's days, we need to
 			// calculate how many days are in the month
 			if i == 3 {
-				date := time.Date(from.Year(), from.Month(), differenceUnits[i], 0, 0, 0, 0, from.Location())
+				date := time.Date(a.Year(), a.Month(), differenceUnits[i], 0, 0, 0, 0, a.Location())
 				differences[i] -= date.Day()
 			}
 		}

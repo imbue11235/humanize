@@ -13,6 +13,7 @@ func TestTimeInterval(t *testing.T) {
 	}{
 		{now, now.Add(24 * time.Hour), []int{0, 0, 1, 0, 0, 0}},
 		{now, now.Add(35 * day), []int{0, 1, 5, 0, 0, 0}},
+		{now, now.Add(28 * day), []int{0, 0, 28, 0, 0, 0}},
 		{now, now.Add(-28 * day), []int{0, 0, 28, 0, 0, 0}},
 		{now, now.Add(-32 * day), []int{0, 1, 1, 0, 0, 0}},
 	}
