@@ -64,7 +64,7 @@ func TestExactTimeTo(t *testing.T) {
 
 func TestExactTimeFrom(t *testing.T) {
 	tests := []timeTest{
-		{"2020-01-01T22:05:00+00:00", "2021-02-01T02:50:22+00:00", "1 year, 1 month, 4 hours, 45 minutes and 22 seconds ago"},
+		{"2020-01-01T22:05:00+00:00", "2021-02-01T02:50:22+00:00", "1 year, 30 days, 4 hours, 45 minutes and 22 seconds ago"},
 		{"2016-01-01T00:00:00+00:00", "2018-05-01T00:00:00+00:00", "2 years and 4 months ago"},
 	}
 
