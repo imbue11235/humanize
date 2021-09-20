@@ -55,7 +55,7 @@ func TestExactTimeTo(t *testing.T) {
 		{"2020-01-01T22:00:00+00:00", "2021-01-01T22:00:00+00:00", "in 1 year"},
 		{"2019-01-01T22:00:00+00:00", "2020-01-01T22:00:00+00:00", "in 1 year"},
 		{"2021-01-02T22:00:00+00:00", "2022-05-05T22:00:00+00:00", "in 1 year, 4 months and 3 days"},
-		{"2020-05-03T15:00:00+00:00", "2021-05-08T18:30:00+00:00", "in 5 days, 3 hours and 30 minutes"},
+		{"2021-05-03T15:00:00+00:00", "2021-05-08T18:30:00+00:00", "in 5 days, 3 hours and 30 minutes"},
 	}
 
 	runTimeTest(t, tests, func(t1 time.Time, t2 time.Time) string {

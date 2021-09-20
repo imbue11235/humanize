@@ -35,6 +35,7 @@ func FormatFuzzyText(input string, formatter interface{}) string {
 
 	var sb strings.Builder
 	for i, word := range extractedWords {
+		// append a space before every word, but the first
 		if i != 0 {
 			sb.WriteString(" ")
 		}
@@ -44,7 +45,7 @@ func FormatFuzzyText(input string, formatter interface{}) string {
 			continue
 		}
 
-		sb.WriteString(useFormatter(formatter, word, i))
+		sb.WriteString(useFormatter(formatter, i, word))
 	}
 
 	return sb.String()
@@ -53,7 +54,7 @@ func FormatFuzzyText(input string, formatter interface{}) string {
 // useFormatter tries to cast the formatter to one of the two function definitions accepted
 // and calls it with given parameters. if the casting is unsuccessful, the parameter string value
 // is returned
-func useFormatter(formatter interface{}, value string, index int) string {
+func useFormatter(formatter interface{}, index int, value string) string {
 	if formatFunc, ok := formatter.(func(int, string) string); ok {
 		return formatFunc(index, value)
 	}

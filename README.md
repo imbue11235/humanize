@@ -25,10 +25,6 @@ E.g. `1 hour 20 minutes` becomes `1 hour` and `1 hour 55 minutes` becomes `2 hou
 
 ##### From
 
-```go
-humanize.Time(time.Time).From(time.Time)
-```
-
 Takes two time instances as input, to produce a human-readable representation of the difference in time.
 
 ```go
@@ -40,10 +36,6 @@ fmt.Printf("It happened almost %s", humanize.Time(a).From(b)) // => It happened 
 
 ##### FromNow
 
-```go
-humanize.Time(time.Time).FromNow()
-```
-
 This is a utility function, which is like calling `Time(a).From(b)`, but where `b` is automatically set to `time.Now()`
 
 ```go
@@ -53,10 +45,6 @@ fmt.Printf("The file was created %s", humanize.Time(a).FromNow()) // => The file
 ```
 
 ##### To
-
-```go
-humanize.Time(time.Time).To(time.Time)
-```
 
 The same as [From](#from), but the opposite time difference.
 
@@ -68,10 +56,6 @@ fmt.Printf("It will happen %s", humanize.Time(a).To(b)) // => It will happen in 
 ```
 
 ##### ToNow
-
-```go
-humanize.Time(time.Time).ToNow()
-```
 
 A utility function like [FromNow](#fromnow), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
 
@@ -87,10 +71,6 @@ A more precise calculation of time, where all time units is included.
 
 ##### From
 
-```go
-humanize.ExactTime(time.Time).From(time.Time)
-```
-
 Takes two time instances as input, to produce a string-representation of the exact difference in time.
 
 ```go
@@ -102,10 +82,6 @@ fmt.Printf("It happened exactly %s", humanize.ExactTime(a).From(b)) // => It hap
 
 ##### FromNow
 
-```go
-humanize.ExactTime(time.Time).FromNow()
-```
-
 This is a utility function, which is like calling `ExactTime(a).From(b)`, but where `b` is automatically set to `time.Now()`.
 
 ```go
@@ -115,10 +91,6 @@ fmt.Printf("The file was deleted %s", humanize.Time(a).FromNow()) // => The file
 ```
 
 ##### To
-
-```go
-humanize.ExactTime(time.Time).To(time.Time)
-```
 
 The same as [From](#from-1), but the opposite time difference.
 
@@ -131,10 +103,6 @@ fmt.Printf("It's my birthday %s", humanize.Time(a).To(b)) // => It's my birthday
 
 ##### ToNow
 
-```go
-humanize.ExactTime(time.Time).ToNow()
-```
-
 A utility function like [FromNow](#fromnow-1), which is like calling `ExactTime(a).To(b)` where `b` is set to `time.Now()`
 
 ```go
@@ -145,11 +113,6 @@ fmt.Printf("The train will depart %s", humanize.Time(a).ToNow()) // => The train
 ---
 
 ### Humanizing slices
-
-```go
-humanize.Slice([]string)
-humanize.Slice([]string, int)
-```
 
 Converts a string slice into a comma-separated string list with an optional limit.
 
@@ -178,10 +141,6 @@ Transforms byte-sizes into the closest related multi-byte unit size (MB, GB etc.
 
 #### Bytes
 
-```go
-humanize.Bytes(uint64)
-```
-
 Uses the SI prefixes (powers of `10`, e.g. `1000b = 1kB`) for converting the bytes into their human-readable representation.
 
 ```go
@@ -198,10 +157,6 @@ fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The si
 
 #### Binary bytes
 
-```go
-humanize.BinaryBytes(uint64)
-```
-
 Uses the binary system (powers of `2`, e.g. `1024b = 1KiB`) for converting the bytes into their human-readable representation.
 
 ```go
@@ -217,10 +172,6 @@ fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => 
 </details>
 
 #### Short-form Binary Bytes
-
-```go
-humanize.ShortFormBinaryBytes(uint64)
-```
 
 Using the same system as [binary bytes](#binary-bytes), sometimes you want a more short, GNU-like format.
 
@@ -239,10 +190,6 @@ fmt.Printf("vacation.zip | %s", humanize.ShortFormBinaryBytes(1000000000000)) //
 ---
 
 ### Humanizing fractions
-
-```go
-humanize.Fraction(float64)
-```
 
 Transforms a float value into a formatted human-readable fraction
 
@@ -267,10 +214,6 @@ in a JSON object or similar, is nice, instead of redefining it all, word for wor
 
 #### Text
 
-```go
-humanize.FuzzyText(string)
-```
-
 Formats a fuzzy text as a common sentence, capitalizing the first letter of the first word, and lower-casing the rest.
 
 ```go
@@ -278,11 +221,6 @@ fmt.Print(humanize.FuzzyText("some-!!@@----Wierd_____format")) // => Some wierd 
 ```
 
 #### Custom format
-
-```go
-humanize.FormatFuzzyText(string, func(string) string)
-humanize.FormatFuzzyText(string, func(int, string) string)
-```
 
 Extracts words from a fuzzy text and constructs a string from the words, using the provided formatter on every extracted word.
 If the formatter is `nil`, the words will be concatenated in their natural state.
@@ -372,8 +310,9 @@ humanize.RegisterLocale("mylocale", locale.Map{...})
 
 Currently, the following locales are included in the `humanize` package:
 
-- [English](locale/en/locale.go)
 - [Danish](locale/da/locale.go)
+- [English](locale/en/locale.go)
+- [German](locale/de/locale.go)
 
 #### Contributing locales
 
@@ -386,7 +325,6 @@ List of wanted locales:
 - [ ] Dutch
 - [ ] Finnish
 - [ ] French
-- [ ] German
 - [ ] Italian
 - [ ] Japanese
 - [ ] Korean
