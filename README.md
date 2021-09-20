@@ -232,6 +232,7 @@ fmt.Printf("The receipt contains your %s", humanize.FormatFuzzyText("customer__i
 <details>
 <summary>Examples of usage ✨</summary>
 
+With custom formatter:
 ```go
 myCustomFormatter := func(index int, word string) {
     if index == 1 {
@@ -242,8 +243,13 @@ myCustomFormatter := func(index int, word string) {
 }
 
 humanize.FormatFuzzyText("app-id", myCustomFormatter) // => App ID
-humanize.FormatFuzzyText("app-id", strings.Title)     // => App Id
 ```
+
+With pre-defined formatter:
+```go
+humanize.FormatFuzzyText("app-id", strings.Title) // => App Id
+```
+
 </details>
 
 ---
