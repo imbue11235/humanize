@@ -23,7 +23,7 @@ Takes two time instances, and presents the difference in a human-readable format
 This is a more loose calculation of time, where only the highest unit of time is prioritized.
 E.g. `1 hour 20 minutes` becomes `1 hour` and `1 hour 55 minutes` becomes `2 hours` etc. 
 
-##### From
+##### Time from `x`
 
 Takes two time instances as input, to produce a human-readable representation of the difference in time.
 
@@ -34,7 +34,7 @@ b := time.Parse(..., "2021-02-01")
 fmt.Printf("It happened almost %s", humanize.Time(a).From(b)) // => It happened almost a year ago
 ```
 
-##### FromNow
+##### Time from now
 
 This is a utility function, which is like calling `Time(a).From(b)`, but where `b` is automatically set to `time.Now()`
 
@@ -44,9 +44,9 @@ a := time.Parse(..., "2021-05-05")
 fmt.Printf("The file was created %s", humanize.Time(a).FromNow()) // => The file was created 5 days ago
 ```
 
-##### To
+##### Time to `x`
 
-The same as [From](#from), but the opposite time difference.
+The same as [From](#time-from-x), but the opposite time difference.
 
 ```go
 a := time.Parse(..., "2020-01-01")
@@ -55,9 +55,9 @@ b := time.Parse(..., "2021-02-01")
 fmt.Printf("It will happen %s", humanize.Time(a).To(b)) // => It will happen in a year
 ```
 
-##### ToNow
+##### Time to now
 
-A utility function like [FromNow](#fromnow), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
+A utility function like [FromNow](#time-from-now), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
 
 ```go
 a := time.Parse(..., "2021-05-05 22:10:00")
@@ -69,7 +69,7 @@ fmt.Printf("The plane will take off %s", humanize.Time(a).ToNow()) // => The pla
 
 A more precise calculation of time, where all time units is included.
 
-##### From
+##### Exact time from `x`
 
 Takes two time instances as input, to produce a string-representation of the exact difference in time.
 
@@ -80,35 +80,35 @@ b := time.Parse(..., "2021-02-01 02:50:22")
 fmt.Printf("It happened exactly %s", humanize.ExactTime(a).From(b)) // => It happened exactly 1 year, 30 days, 4 hours, 45 minutes and 22 seconds ago
 ```
 
-##### FromNow
+##### Exact time from now
 
 This is a utility function, which is like calling `ExactTime(a).From(b)`, but where `b` is automatically set to `time.Now()`.
 
 ```go
 a := time.Parse(..., "2021-06-06 22:05:05")
 
-fmt.Printf("The file was deleted %s", humanize.Time(a).FromNow()) // => The file was deleted 5 minutes and 5 seconds ago
+fmt.Printf("The file was deleted %s", humanize.ExactTime(a).FromNow()) // => The file was deleted 5 minutes and 5 seconds ago
 ```
 
-##### To
+##### Exact time to `x`
 
-The same as [From](#from-1), but the opposite time difference.
+The same as [From](#exact-time-from-x), but the opposite time difference.
 
 ```go
 a := time.Parse(..., "2021-05-03 15:00:00")
 b := time.Parse(..., "2021-05-08 18:30:00")
 
-fmt.Printf("It's my birthday %s", humanize.Time(a).To(b)) // => It's my birthday in 5 days, 3 hours and 30 minutes
+fmt.Printf("It's my birthday %s", humanize.ExactTime(a).To(b)) // => It's my birthday in 5 days, 3 hours and 30 minutes
 ```
 
-##### ToNow
+##### Exact time to now
 
-A utility function like [FromNow](#fromnow-1), which is like calling `ExactTime(a).To(b)` where `b` is set to `time.Now()`
+A utility function like [FromNow](#exact-time-from-now), which is like calling `ExactTime(a).To(b)` where `b` is set to `time.Now()`
 
 ```go
 a := time.Parse(..., "2021-03-02 12:00:33")
 
-fmt.Printf("The train will depart %s", humanize.Time(a).ToNow()) // => The train will depart in 2 minutes and 33 seconds
+fmt.Printf("The train will depart %s", humanize.ExactTime(a).ToNow()) // => The train will depart in 2 minutes and 33 seconds
 ```
 ---
 
@@ -171,7 +171,7 @@ fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => 
 ```
 </details>
 
-#### Short-form Binary Bytes
+#### Short-form binary bytes
 
 Using the same system as [binary bytes](#binary-bytes), sometimes you want a more short, GNU-like format.
 
@@ -260,7 +260,7 @@ Converts an integer into a readable string representation, rounding the volume a
 fmt.Printf("I have %s followers", humanize.Int(1589035)) // => I have 1.6 million followers
 ```
 
-#### Int with suffix
+#### Including suffix
 
 Does the same as [Int](#int), but returns the suffix identifier, rather than the fully translated suffix. E.g. `million = M`
 
