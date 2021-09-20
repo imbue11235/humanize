@@ -29,24 +29,23 @@ func Fraction(decimal float64) string {
 
 	// to see if the fraction can be further reduced,
 	// we will calculate the greatest common factor
-	gcf := calculateGCF(numerator, denominator)
-	if gcf > 1 {
+	if gcf := calculateGCF(numerator, denominator); gcf > 1 {
 		denominator /= gcf
 		numerator /= gcf
 	}
 
 	// count amount of "wholes" (integers) the fraction has
 	// e.g. 6/2 => 3 integers
-	wholes := numerator / denominator
-	if wholes > 0 {
+	if wholes := numerator / denominator; wholes != 0 {
 		numerator -= wholes * denominator
-		return fmt.Sprintf("%d %d/%d", wholes, numerator, denominator)
-	}
 
-	// if wholes are negative
-	if wholes < 0 {
-		numerator -= wholes * denominator
-		return fmt.Sprintf("%d %d/%d", wholes, -numerator, denominator)
+		// if wholes are negative
+		// reverse the numerator
+		if wholes < 0 {
+			numerator = -numerator
+		}
+
+		return fmt.Sprintf("%d %d/%d", wholes, numerator, denominator)
 	}
 
 	return fmt.Sprintf("%d/%d", numerator, denominator)

@@ -71,13 +71,18 @@ A more precise calculation of time, where all time units is included.
 
 ##### From
 
+```go
+humanize.ExactTime(a).From(b)
+```
+
 Same as [From](#from), but using exact time to calculate the difference between the two time instances
+
 
 ```go
 a := time.Parse(..., "2020-01-01 22:00:05")
 b := time.Parse(..., "2021-02-01 02:50:22")
 
-fmt.Printf("It happened almost %s", humanize.Time(a).From(b)) // => It happened almost a year ago
+fmt.Printf("It happened exactly %s", humanize.ExactTime(a).From(b)) // => It happened exactly 1 year, 30 days, 4 hours, 45 minutes and 22 seconds ago
 ```
 
 ##### From now
