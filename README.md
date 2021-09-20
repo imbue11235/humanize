@@ -23,7 +23,7 @@ Takes two time instances, and presents the difference in a human-readable format
 This is a more loose calculation of time, where only the highest unit of time is prioritized.
 E.g. `1 hour 20 minutes` becomes `1 hour` and `1 hour 55 minutes` becomes `2 hours` etc. 
 
-##### Time from `x`
+##### Time from _x_
 
 Takes two time instances as input, to produce a human-readable representation of the difference in time.
 
@@ -44,7 +44,7 @@ a := time.Parse(..., "2021-05-05")
 fmt.Printf("The file was created %s", humanize.Time(a).FromNow()) // => The file was created 5 days ago
 ```
 
-##### Time to `x`
+##### Time to _x_
 
 The same as [From](#time-from-x), but the opposite time difference.
 
@@ -69,7 +69,7 @@ fmt.Printf("The plane will take off %s", humanize.Time(a).ToNow()) // => The pla
 
 A more precise calculation of time, where all time units is included.
 
-##### Exact time from `x`
+##### Exact time from _x_
 
 Takes two time instances as input, to produce a string-representation of the exact difference in time.
 
@@ -90,7 +90,7 @@ a := time.Parse(..., "2021-06-06 22:05:05")
 fmt.Printf("The file was deleted %s", humanize.ExactTime(a).FromNow()) // => The file was deleted 5 minutes and 5 seconds ago
 ```
 
-##### Exact time to `x`
+##### Exact time to _x_
 
 The same as [From](#exact-time-from-x), but the opposite time difference.
 
