@@ -25,6 +25,10 @@ E.g. `1 hour 20 minutes` becomes `1 hour` and `1 hour 55 minutes` becomes `2 hou
 
 ##### From
 
+```go
+humanize.Time(time.Time).From(time.Time)
+```
+
 Takes two time instances as input, to produce a human-readable representation of the difference in time.
 
 ```go
@@ -34,7 +38,11 @@ b := time.Parse(..., "2021-02-01")
 fmt.Printf("It happened almost %s", humanize.Time(a).From(b)) // => It happened almost a year ago
 ```
 
-##### From now
+##### FromNow
+
+```go
+humanize.Time(time.Time).FromNow()
+```
 
 This is a utility function, which is like calling `Time(a).From(b)`, but where `b` is automatically set to `time.Now()`
 
@@ -46,6 +54,10 @@ fmt.Printf("The file was created %s", humanize.Time(a).FromNow()) // => The file
 
 ##### To
 
+```go
+humanize.Time(time.Time).To(time.Time)
+```
+
 The same as [From](#from), but the opposite time difference.
 
 ```go
@@ -55,14 +67,18 @@ b := time.Parse(..., "2021-02-01")
 fmt.Printf("It will happen %s", humanize.Time(a).To(b)) // => It will happen in a year
 ```
 
-##### To now
+##### ToNow
 
-A utility function like [FromNow](#from-now), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
+```go
+humanize.Time(time.Time).ToNow()
+```
+
+A utility function like [FromNow](#fromnow), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
 
 ```go
 a := time.Parse(..., "2021-05-05 22:10:00")
 
-fmt.Printf("The plane will take off in %s", humanize.Time(a).ToNow()) // => The plane will take off in a minute
+fmt.Printf("The plane will take off %s", humanize.Time(a).ToNow()) // => The plane will take off in a minute
 ```
 
 #### Exact time
@@ -72,11 +88,10 @@ A more precise calculation of time, where all time units is included.
 ##### From
 
 ```go
-humanize.ExactTime(a).From(b)
+humanize.ExactTime(time.Time).From(time.Time)
 ```
 
-Same as [From](#from), but using exact time to calculate the difference between the two time instances
-
+Takes two time instances as input, to produce a string-representation of the exact difference in time.
 
 ```go
 a := time.Parse(..., "2020-01-01 22:00:05")
@@ -85,21 +100,56 @@ b := time.Parse(..., "2021-02-01 02:50:22")
 fmt.Printf("It happened exactly %s", humanize.ExactTime(a).From(b)) // => It happened exactly 1 year, 30 days, 4 hours, 45 minutes and 22 seconds ago
 ```
 
-##### From now
+##### FromNow
+
+```go
+humanize.ExactTime(time.Time).FromNow()
+```
+
+This is a utility function, which is like calling `ExactTime(a).From(b)`, but where `b` is automatically set to `time.Now()`.
+
+```go
+a := time.Parse(..., "2021-06-06 22:05:05")
+
+fmt.Printf("The file was deleted %s", humanize.Time(a).FromNow()) // => The file was deleted 5 minutes and 5 seconds ago
+```
 
 ##### To
 
-##### To now
+```go
+humanize.ExactTime(time.Time).To(time.Time)
+```
+
+The same as [From](#from-1), but the opposite time difference.
 
 ```go
-humanize.ExactTime(time).From(from) // => 1 hour, 23 minutes and 20 seconds ago
-humanize.ExactTime(time).FromNow()  // => 3 years and 2 months ago
-humanize.ExactTime(time).To(to)     // => in 6 years and 25 days
-humanize.ExactTime(time).ToNow()    // => in 3 years, 6 months and 23 days
+a := time.Parse(..., "2021-05-03 15:00:00")
+b := time.Parse(..., "2021-05-08 18:30:00")
+
+fmt.Printf("It's my birthday %s", humanize.Time(a).To(b)) // => It's my birthday in 5 days, 3 hours and 30 minutes
+```
+
+##### ToNow
+
+```go
+humanize.ExactTime(time.Time).ToNow()
+```
+
+A utility function like [FromNow](#fromnow-1), which is like calling `ExactTime(a).To(b)` where `b` is set to `time.Now()`
+
+```go
+a := time.Parse(..., "2021-03-02 12:00:33")
+
+fmt.Printf("The train will depart %s", humanize.Time(a).ToNow()) // => The train will depart in 2 minutes and 33 seconds
 ```
 ---
 
 ### Humanizing slices
+
+```go
+humanize.Slice([]string)
+humanize.Slice([]string, int)
+```
 
 Converts a string slice into a comma-separated string list with an optional limit.
 
@@ -128,6 +178,10 @@ Transforms byte-sizes into the closest related multi-byte unit size (MB, GB etc.
 
 #### Bytes
 
+```go
+humanize.Bytes(uint64)
+```
+
 Uses the SI prefixes (powers of `10`, e.g. `1000b = 1kB`) for converting the bytes into their human-readable representation.
 
 ```go
@@ -143,6 +197,10 @@ fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The si
 </details>
 
 #### Binary bytes
+
+```go
+humanize.BinaryBytes(uint64)
+```
 
 Uses the binary system (powers of `2`, e.g. `1024b = 1KiB`) for converting the bytes into their human-readable representation.
 
@@ -160,10 +218,14 @@ fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => 
 
 #### Short-form Binary Bytes
 
+```go
+humanize.ShortFormBinaryBytes(uint64)
+```
+
 Using the same system as [binary bytes](#binary-bytes), sometimes you want a more short, GNU-like format.
 
 ```go
-fmt.Printf("Dockerfile | %s", humanize.ShortFormBinaryBytes(1000000000000)) // => Dockerfile | 931G
+fmt.Printf("vacation.zip | %s", humanize.ShortFormBinaryBytes(1000000000000)) // => vacation.zip | 931G
 ```
 
 <details>
@@ -177,6 +239,10 @@ fmt.Printf("Dockerfile | %s", humanize.ShortFormBinaryBytes(1000000000000)) // =
 ---
 
 ### Humanizing fractions
+
+```go
+humanize.Fraction(float64)
+```
 
 Transforms a float value into a formatted human-readable fraction
 
@@ -201,6 +267,10 @@ in a JSON object or similar, is nice, instead of redefining it all, word for wor
 
 #### Text
 
+```go
+humanize.FuzzyText(string)
+```
+
 Formats a fuzzy text as a common sentence, capitalizing the first letter of the first word, and lower-casing the rest.
 
 ```go
@@ -208,6 +278,11 @@ fmt.Print(humanize.FuzzyText("some-!!@@----Wierd_____format")) // => Some wierd 
 ```
 
 #### Custom format
+
+```go
+humanize.FormatFuzzyText(string, func(string) string)
+humanize.FormatFuzzyText(string, func(int, string) string)
+```
 
 Extracts words from a fuzzy text and constructs a string from the words, using the provided formatter on every extracted word.
 If the formatter is `nil`, the words will be concatenated in their natural state.
