@@ -122,7 +122,7 @@ Similar to [estimated time](#estimated-time), this is a loose calculation of giv
 fmt.Printf("My dog is %s old", humanize.Duration(time.Hour * 24 * 68)) // => My dog is 2 months old
 ```
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.Duration(time.Hour * 24 * 38)  // => a month
@@ -140,7 +140,7 @@ fmt.Printf("The offer ends in %s", humanize.ExactDuration(time.Hour * 70)) // =>
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.ExactDuration(time.Hour * 70)                                // => 2 days and 22 hours
@@ -160,7 +160,7 @@ fmt.Printf("I went to the zoo with %s", humanize.Slice([]string{"Noah", "Marc"})
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.Slice([]string{"Joe"})                                // => Joe
@@ -187,7 +187,7 @@ fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The si
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.Bytes(2000000000)          // => 2.0 GB
@@ -205,7 +205,7 @@ fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => 
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.BinaryBytes(2500000)          // => 2.4 MiB
@@ -223,7 +223,7 @@ fmt.Printf("vacation.zip | %s", humanize.ShortFormBinaryBytes(1000000000000)) //
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.ShortFormBinaryBytes(35324355)             // => 34M
@@ -243,7 +243,7 @@ fmt.Printf("You can have %s of the cake", humanize.Fraction(0.25)) // => You can
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.Fraction(2.625) // => 2 5/8
@@ -268,7 +268,7 @@ fmt.Print(humanize.FuzzyText("some-!!@@----Wierd_____format")) // => Some wierd 
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.FuzzyText("my.key")                  // => My key
@@ -287,7 +287,7 @@ fmt.Printf("The receipt contains your %s", humanize.FormatFuzzyText("customer__i
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 With custom formatter:
 ```go
@@ -324,7 +324,7 @@ fmt.Printf("I have %s followers", humanize.Int(1589035)) // => I have 1.6 millio
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.Int(999)      // => 999
@@ -342,7 +342,7 @@ fmt.Printf("I have $%s on my bank account", humanize.IntWithSymbol(785030)) // =
 ```
 
 <details>
-<summary>Examples of usage ✨</summary>
+<summary>Additional examples of usage</summary>
 
 ```go
 humanize.Int(999)      // => 999
