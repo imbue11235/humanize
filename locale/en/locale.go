@@ -4,10 +4,10 @@ import (
 	"github.com/imbue11235/humanize/locale"
 )
 
-// Code ...
+// Code contains the locale code for english locale
 var Code = "en"
 
-// Locale ...
+// Locale contains the english locale data
 var Locale = locale.Map{
 	"slice": locale.Map{
 		"connector": "and",

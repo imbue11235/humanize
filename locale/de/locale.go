@@ -2,10 +2,10 @@ package de
 
 import "github.com/imbue11235/humanize/locale"
 
-// Code ...
+// Code contains the locale code for german locale
 var Code = "de"
 
-// Locale ...
+// Locale contains the german locale data
 var Locale = locale.Map{
 	"slice": locale.Map{
 		"connector": "und",

@@ -2,10 +2,10 @@ package da
 
 import "github.com/imbue11235/humanize/locale"
 
-// Code ...
+// Code contains the locale code for danish locale
 var Code = "da"
 
-// Locale ...
+// Locale contains the danish locale data
 var Locale = locale.Map{
 	"slice": locale.Map{
 		"connector": "og",
