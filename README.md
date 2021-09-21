@@ -357,7 +357,7 @@ humanize.Int(15600000) // => 15.6M
 
 #### Switching locales
 
-To use a different locale with `humanize`, simply import the locale you need, and register it with the manager.
+To use a different locale with `humanize`, simply import the locale you need, and register it.
 To view a list of currently available locales, see [built-in locales](#built-in-locales).
 
 ```go
