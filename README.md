@@ -385,9 +385,15 @@ To register your own custom locale, simply specify a `locale.Map` mimicking the 
 as the built-in locales. See [the english locale map](locale/en/locale.go) for additional details.
 
 ```go
-humanize.RegisterLocale("mylocale", locale.Map{...})
+humanize.RegisterLocale("my-locale", locale.Map{...})
 ```
 #### Fallback locale
+
+If the current selected locale does not support or define the translation needed, you can define a locale to fall back to. Make sure that the locale is registered beforehand or it will result in an error.
+
+```go
+humanize.SetFallbackLocale("my-fallback-locale")
+```
 
 #### Built-in locales
 

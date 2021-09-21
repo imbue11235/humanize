@@ -29,6 +29,11 @@ func SetLocale(code string) error {
 	return manager.SetLocale(code)
 }
 
+// SetFallbackLocale ...
+func SetFallbackLocale(code string) error {
+	return manager.SetFallbackLocale(code)
+}
+
 func translate(path string, args ...interface{}) string {
 	return manager.Translate(path, args...)
 }

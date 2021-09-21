@@ -85,8 +85,8 @@ func (m *Manager) RegisterLocale(code string, translations Map) error {
 
 // SetFallbackLocale ...
 func (m *Manager) SetFallbackLocale(code string) error {
-	if translator, ok := m.translators[code]; ok {
-		m.fallbackTranslator = translator
+	if foundTranslator, ok := m.translators[code]; ok {
+		m.fallbackTranslator = foundTranslator
 
 		return nil
 	}
@@ -96,9 +96,9 @@ func (m *Manager) SetFallbackLocale(code string) error {
 
 // SetLocale ...
 func (m *Manager) SetLocale(code string) error {
-	if translator, ok := m.translators[code]; ok {
+	if foundTranslator, ok := m.translators[code]; ok {
 		m.currentLocale = code
-		m.currentTranslator = translator
+		m.currentTranslator = foundTranslator
 
 		return nil
 	}
