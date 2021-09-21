@@ -123,7 +123,11 @@ fmt.Printf("My dog is %s old", humanize.Duration(time.Hour * 24 * 68)) // => My 
 ```
 <details>
 <summary>Examples of usage ✨</summary>
+
 ```go
+humanize.Duration(time.Hour * 24 * 38)  // => a month
+humanize.Duration(time.Hour * 24 * 400) // => a year
+humanize.Duration(time.Hour * 24 * 800) // => 2 years
 ```
 </details>
 
@@ -137,7 +141,11 @@ fmt.Printf("The offer ends in %s", humanize.ExactDuration(time.Hour * 70)) // =>
 
 <details>
 <summary>Examples of usage ✨</summary>
+
 ```go
+humanize.ExactDuration(time.Hour * 70)                                // => 2 days and 22 hours
+humanize.ExactDuration(time.Hour*3 + time.Minute*33 + time.Second*55) // => 3 hours, 33 minutes and 55 seconds
+humanize.ExactDuration(time.Hour * 24 * 8)                            // => 8 days
 ```
 </details>
 
@@ -182,7 +190,9 @@ fmt.Printf("The size of 'cats.jpg' is %s", humanize.Bytes(2500000)) // => The si
 <summary>Examples of usage ✨</summary>
 
 ```go
-
+humanize.Bytes(2000000000)          // => 2.0 GB
+humanize.Bytes(1000000000000)       // => 1.0 TB
+humanize.Bytes(1000000000000000000) // => 1.0 EB
 ```
 </details>
 
@@ -198,13 +208,15 @@ fmt.Printf("The size of 'dogs.jpg' is %s", humanize.BinaryBytes(2500000)) // => 
 <summary>Examples of usage ✨</summary>
 
 ```go
-
+humanize.BinaryBytes(2500000)          // => 2.4 MiB
+humanize.BinaryBytes(10000000)         // => 9.5 MiB
+humanize.BinaryBytes(1000000000000000) // => 909 TiB
 ```
 </details>
 
 #### Short-form binary bytes
 
-Using the same system as [binary bytes](#binary-bytes), sometimes you want a more short, GNU-like format.
+Using the same system as [binary bytes](#binary-bytes), but in a GNU-like format.
 
 ```go
 fmt.Printf("vacation.zip | %s", humanize.ShortFormBinaryBytes(1000000000000)) // => vacation.zip | 931G
@@ -214,7 +226,9 @@ fmt.Printf("vacation.zip | %s", humanize.ShortFormBinaryBytes(1000000000000)) //
 <summary>Examples of usage ✨</summary>
 
 ```go
-
+humanize.ShortFormBinaryBytes(35324355)             // => 34M
+humanize.ShortFormBinaryBytes(2000000000)           // => 1.9G
+humanize.ShortFormBinaryBytes(13400000000000000000) // => 12E
 ```
 </details>
 
@@ -232,7 +246,9 @@ fmt.Printf("You can have %s of the cake", humanize.Fraction(0.25)) // => You can
 <summary>Examples of usage ✨</summary>
 
 ```go
-
+humanize.Fraction(2.625) // => 2 5/8
+humanize.Fraction(0.5)   // => 1/2
+humanize.Fraction(1.66)  // => 1 33/50
 ```
 </details>
 
@@ -250,6 +266,16 @@ Formats a fuzzy text as a common sentence, capitalizing the first letter of the 
 ```go
 fmt.Print(humanize.FuzzyText("some-!!@@----Wierd_____format")) // => Some wierd format
 ```
+
+<details>
+<summary>Examples of usage ✨</summary>
+
+```go
+humanize.FuzzyText("my.key")                  // => My key
+humanize.FuzzyText("snake-case")              // => Snake case
+humanize.FuzzyText("a_text_with_underscores") // => A text with underscores
+```
+</details>
 
 #### Custom format
 
@@ -297,6 +323,16 @@ Converts an integer into a readable string representation, rounding the volume a
 fmt.Printf("I have %s followers", humanize.Int(1589035)) // => I have 1.6 million followers
 ```
 
+<details>
+<summary>Examples of usage ✨</summary>
+
+```go
+humanize.Int(999)      // => 999
+humanize.Int(125000)   // => 125 thousand
+humanize.Int(15600000) // => 15.6 million
+```
+</details>
+
 #### Including symbol
 
 Does the same as [Int](#int), but returns the symbol identifier, rather than the fully translated suffix. E.g. `million = M`
@@ -304,6 +340,16 @@ Does the same as [Int](#int), but returns the symbol identifier, rather than the
 ```go
 fmt.Printf("I have $%s on my bank account", humanize.IntWithSymbol(785030)) // => I have $785K on my bank account
 ```
+
+<details>
+<summary>Examples of usage ✨</summary>
+
+```go
+humanize.Int(999)      // => 999
+humanize.Int(125000)   // => 125K
+humanize.Int(15600000) // => 15.6M
+```
+</details>
 
 ## 🌍 Localization
 
