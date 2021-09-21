@@ -71,9 +71,9 @@ func reverse(a []int) []int {
 	return a
 }
 
-func deriveTimeMetrics(t time.Time) []int {
-	y, m, d := t.Date()
-	h, mm, s := t.Clock()
+func deriveTimeMetrics(from time.Time) []int {
+	y, m, d := from.Date()
+	h, mm, s := from.Clock()
 
 	return []int{s, mm, h, d, int(m), y}
 }

@@ -112,6 +112,37 @@ fmt.Printf("The train will depart %s", humanize.ExactTime(a).ToNow()) // => The 
 ```
 ---
 
+### Humanizing duration
+
+#### Estimated duration
+
+Similar to [estimated time](#estimated-time), this is a loose calculation of given duration.
+
+```go
+fmt.Printf("My dog is %s old", humanize.Duration(time.Hour * 24 * 68)) // => My dog is 2 months old
+```
+<details>
+<summary>Examples of usage ✨</summary>
+```go
+```
+</details>
+
+#### Exact duration
+
+Similar to [exact time](#exact-time), this is a strict and precise calculation of the given duration.
+
+```go
+fmt.Printf("The offer ends in %s", humanize.ExactDuration(time.Hour * 70)) // => The offer ends in 2 days and 22 hours
+```
+
+<details>
+<summary>Examples of usage ✨</summary>
+```go
+```
+</details>
+
+---
+
 ### Humanizing slices
 
 Converts a string slice into a comma-separated string list with an optional limit.

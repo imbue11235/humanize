@@ -17,6 +17,15 @@ func runTimeTest(t *testing.T, tests []timeTest, handler func(a time.Time, b tim
 	}
 }
 
+func parseTime(t *testing.T, value string) time.Time {
+	parsed, err := time.Parse(time.RFC3339, value)
+	if err != nil {
+		t.Errorf("could not parse time '%s'", value)
+	}
+
+	return parsed
+}
+
 func TestTimeTo(t *testing.T) {
 	tests := []timeTest{
 		{"2021-01-01T22:00:00+00:00", "2021-01-01T22:00:00+00:00", "just now"},
@@ -74,11 +83,41 @@ func TestExactTimeFrom(t *testing.T) {
 	})
 }
 
-func parseTime(t *testing.T, value string) time.Time {
-	parsed, err := time.Parse(time.RFC3339, value)
-	if err != nil {
-		t.Errorf("could not parse time '%s'", value)
+func TestDuration(t *testing.T) {
+	tests := []struct {
+		input    time.Duration
+		expected string
+	}{
+		{time.Hour * 48, "2 days"},
+		{time.Hour * 65, "2 days"},
+		{time.Hour * 70, "3 days"},
+		{time.Hour * 24 * 38, "a month"},
+		{time.Hour * 1000000, "a long time"},
 	}
 
-	return parsed
+	for _, test := range tests {
+		if actual := Duration(test.input); actual != test.expected {
+			t.Errorf("expected `%s`, but got `%s`", test.expected, actual)
+		}
+	}
+}
+
+func TestExactDuration(t *testing.T) {
+	tests := []struct {
+		input    time.Duration
+		expected string
+	}{
+		{time.Hour * 48, "2 days"},
+		{time.Hour * 65, "2 days and 17 hours"},
+		{time.Hour * 70, "2 days and 22 hours"},
+		{time.Hour * 24 * 8, "8 days"},
+		{time.Hour*3 + time.Minute*33 + time.Second*55, "3 hours, 33 minutes and 55 seconds"},
+		{time.Hour * 1000000, "114 years, 1 month, 26 days and 6 hours"},
+	}
+
+	for _, test := range tests {
+		if actual := ExactDuration(test.input); actual != test.expected {
+			t.Errorf("expected `%s`, but got `%s`", test.expected, actual)
+		}
+	}
 }

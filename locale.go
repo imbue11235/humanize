@@ -13,17 +13,18 @@ func init() {
 	UseManager(locale.NewManager(locale.WithLocale("en", en.Locale)))
 }
 
-// UseManager ...
+// UseManager sets the global used manager to the given manager
+// useful for setting up a custom manager
 func UseManager(m *locale.Manager) {
 	manager = m
 }
 
-// RegisterLocale ...
+// RegisterLocale registers a new locale with the translation manager.
 func RegisterLocale(code string, translations locale.Map) error {
 	return manager.RegisterLocale(code, translations)
 }
 
-// SetLocale ...
+// SetLocale sets the locale on the translation manager instance
 func SetLocale(code string) error {
 	return manager.SetLocale(code)
 }
