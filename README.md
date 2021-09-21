@@ -297,12 +297,12 @@ Converts an integer into a readable string representation, rounding the volume a
 fmt.Printf("I have %s followers", humanize.Int(1589035)) // => I have 1.6 million followers
 ```
 
-#### Including suffix
+#### Including symbol
 
-Does the same as [Int](#int), but returns the suffix identifier, rather than the fully translated suffix. E.g. `million = M`
+Does the same as [Int](#int), but returns the symbol identifier, rather than the fully translated suffix. E.g. `million = M`
 
 ```go
-fmt.Printf("I have $%s on my bank account", humanize.IntWithSuffix(785030)) // => I have $785K on my bank account
+fmt.Printf("I have $%s on my bank account", humanize.IntWithSymbol(785030)) // => I have $785K on my bank account
 ```
 
 ## 🌍 Localization

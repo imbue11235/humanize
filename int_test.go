@@ -53,7 +53,7 @@ func TestIntWithSuffix(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		if actual := IntWithSuffix(test.input); actual != test.expected {
+		if actual := IntWithSymbol(test.input); actual != test.expected {
 			t.Errorf("expected '%s' but got '%s'", test.expected, actual)
 		}
 	}

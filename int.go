@@ -13,12 +13,12 @@ func Int(value uint64) string {
 	return formatInt(value, true)
 }
 
-// IntWithSuffix ...
-func IntWithSuffix(value uint64) string {
+// IntWithSymbol ...
+func IntWithSymbol(value uint64) string {
 	return formatInt(value, false)
 }
 
-func formatInt(value uint64, translateSuffix bool) string {
+func formatInt(value uint64, translateSymbol bool) string {
 	if value < 1000 {
 		return strconv.FormatUint(value, 10)
 	}
@@ -30,7 +30,7 @@ func formatInt(value uint64, translateSuffix bool) string {
 		formatPrecision++
 	}
 
-	if translateSuffix {
+	if translateSymbol {
 		return fmt.Sprintf(
 			"%s %s",
 			strconv.FormatFloat(volume, 'f', formatPrecision, 64),
