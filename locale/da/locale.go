@@ -2,6 +2,9 @@ package da
 
 import "github.com/imbue11235/humanize/locale"
 
+// Code ...
+var Code = "da"
+
 // Locale ...
 var Locale = locale.Map{
 	"slice": locale.Map{

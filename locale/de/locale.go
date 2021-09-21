@@ -2,6 +2,9 @@ package de
 
 import "github.com/imbue11235/humanize/locale"
 
+// Code ...
+var Code = "de"
+
 // Locale ...
 var Locale = locale.Map{
 	"slice": locale.Map{

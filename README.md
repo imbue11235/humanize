@@ -357,23 +357,25 @@ humanize.Int(15600000) // => 15.6M
 
 #### Switching locales
 
-To use a different locale with `humanize`, simply import it.
-It auto-registers with the locale manager, and are ready to be used.
+To use a different locale with `humanize`, simply import the locale you need, and register it with the manager.
 To view a list of currently available locales, see [built-in locales](#built-in-locales).
 
 ```go
 import (
 	"github.com/imbue11235/humanize"
-	_ "github.com/imbue11235/humanize/locale/da"
+	"github.com/imbue11235/humanize/locale/da"
 )
 
 func main() {
+	// register the locale
+	humanize.RegisterLocale(da.Code, da.Locale)
+	
 	names := []string{"Hans", "Viggo", "Klaus"}
 	
 	fmt.Printf("Seen by %s", humanize.Slice(names, 2)) // => Seen by Hans, Viggo and one other
 	
 	// switch the locale
-	humanize.SetLocale("da")
+	humanize.SetLocale(da.Code)
 	
 	fmt.Printf("Set af %s", humanize.Slice(names, 2)) // => Set af Hans, Viggo og én anden
 }

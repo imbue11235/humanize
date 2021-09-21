@@ -4,6 +4,9 @@ import (
 	"github.com/imbue11235/humanize/locale"
 )
 
+// Code ...
+var Code = "en"
+
 // Locale ...
 var Locale = locale.Map{
 	"slice": locale.Map{
