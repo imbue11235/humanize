@@ -9,6 +9,36 @@ import (
 	"github.com/imbue11235/humanize/locale/en"
 )
 
+func TestLocaleManager(t *testing.T) {
+	if translation := translate("test"); translation != "" {
+		t.Errorf("expected path `test` to be empty")
+	}
+
+	if err := RegisterLocale("test", locale.Map{"test": "response"}); err != nil {
+		t.Errorf("expected `RegisterLocale` with `test` to not return an error. Error: %s", err)
+	}
+
+	if err := RegisterLocale("test2", locale.Map{"key": "response"}); err != nil {
+		t.Errorf("expected `RegisterLocale` with `test2` to not return an error. Error: %s", err)
+	}
+
+	if err := SetLocale("test"); err != nil {
+		t.Errorf("expected `SetLocale` to not return an error. Error: %s", err)
+	}
+
+	if translation := translate("test"); translation == "" {
+		t.Errorf("expected path `test` to be `response`")
+	}
+
+	if err := SetFallbackLocale("test2"); err != nil {
+		t.Errorf("expected `SetFallbackLocale` to not return an error. Error: %s", err)
+	}
+
+	if translation := translate("key"); translation == "" {
+		t.Errorf("expected path `key` to fallback to `test` and resolve to `response`")
+	}
+}
+
 func TestLocales(t *testing.T) {
 	tests := []struct {
 		code   string

@@ -66,7 +66,7 @@ func (t *TimeBuilder) ToNow() string {
 }
 
 // normalizeTimezone ensures that from and to time are in the same
-// timezone by converting one to the others timezone if needed
+// timezone by converting one to the other's timezone if needed
 func (t *TimeBuilder) normalizeTimezone(from, to time.Time) (time.Time, time.Time) {
 	if from.Location() != to.Location() {
 		from.In(to.Location())

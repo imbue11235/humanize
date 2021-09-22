@@ -22,17 +22,32 @@ var (
 	shortFormBinary = []string{"B", "K", "M", "G", "T", "P", "E", "Z", "Y"}
 )
 
-// Bytes ...
+// Bytes uses the SI prefixes (powers of 10, e.g. 1000b = 1kB)
+// for converting the bytes into their human-readable representation.
+//
+//		s := humanize.Bytes(2500000)
+//		fmt.Println(s) => "2.5 MB"
+//
 func Bytes(value uint64) string {
 	return formatBytes(value, 1000, decimal, "%s %s")
 }
 
-// BinaryBytes ...
+// BinaryBytes uses the binary system (powers of 2, e.g. 1024b = 1KiB)
+// for converting the bytes into their human-readable representation.
+//
+//		s := humanize.BinaryBytes(2500000)
+//		fmt.Println(s) => "2.4 MiB"
+//
 func BinaryBytes(value uint64) string {
 	return formatBytes(value, 1024, binary, "%s %s")
 }
 
-// ShortFormBinaryBytes ...
+// ShortFormBinaryBytes uses the binary system (powers of 2, e.g. 1024b = 1KiB)
+// for converting the bytes into a GNU-like format.
+//
+//		s := humanize.ShortFormBinaryBytes(2500000)
+//		fmt.Println(s) => "2.4M"
+//
 func ShortFormBinaryBytes(value uint64) string {
 	return formatBytes(value, 1024, shortFormBinary, "%s%s")
 }

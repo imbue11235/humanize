@@ -4,6 +4,10 @@ import (
 	"testing"
 )
 
+func TestTest(t *testing.T) {
+
+}
+
 func TestInt(t *testing.T) {
 	tests := []struct {
 		input    uint64
