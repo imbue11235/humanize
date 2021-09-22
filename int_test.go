@@ -4,10 +4,6 @@ import (
 	"testing"
 )
 
-func TestTest(t *testing.T) {
-
-}
-
 func TestInt(t *testing.T) {
 	tests := []struct {
 		input    uint64
@@ -30,6 +26,7 @@ func TestInt(t *testing.T) {
 		{1000000000000000, "1 quadrillion"},
 		{10000000000000000, "10 quadrillion"},
 		{9200000000000000000, "9.2 quintillion"},
+		{10000000000000000000, "10 quintillion"},
 	}
 
 	for _, test := range tests {
