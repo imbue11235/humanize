@@ -18,10 +18,6 @@ func TestLocaleManager(t *testing.T) {
 		t.Errorf("expected `RegisterLocale` with `test` to not return an error. Error: %s", err)
 	}
 
-	if err := RegisterLocale("test2", locale.Map{"key": "response"}); err != nil {
-		t.Errorf("expected `RegisterLocale` with `test2` to not return an error. Error: %s", err)
-	}
-
 	if err := SetLocale("test"); err != nil {
 		t.Errorf("expected `SetLocale` to not return an error. Error: %s", err)
 	}
@@ -30,12 +26,16 @@ func TestLocaleManager(t *testing.T) {
 		t.Errorf("expected path `test` to be `response`")
 	}
 
-	if err := SetFallbackLocale("test2"); err != nil {
+	if err := SetFallbackLocale("en"); err != nil {
 		t.Errorf("expected `SetFallbackLocale` to not return an error. Error: %s", err)
 	}
 
-	if translation := translate("key"); translation == "" {
-		t.Errorf("expected path `key` to fallback to `test` and resolve to `response`")
+	if translation := translate("time.now"); translation == "" {
+		t.Errorf("expected path `time.now` to fallback to `en` and resolve to `response`")
+	}
+
+	if err := SetLocale("en"); err != nil {
+		t.Errorf("expected `SetLocale` to not return an error. Error: %s", err)
 	}
 }
 
