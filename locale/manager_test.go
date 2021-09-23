@@ -5,7 +5,7 @@ import (
 )
 
 func TestManagerTranslate(t *testing.T) {
-	manager := NewManager(WithLocale("default", Map{
+	manager, _ := NewManager(WithLocale("default", Map{
 		"flowers": Map{
 			"rose":   "Rose",
 			"lily":   "Lily",
@@ -40,7 +40,7 @@ func TestManagerTranslate(t *testing.T) {
 }
 
 func TestManagerPluralize(t *testing.T) {
-	manager := NewManager(WithLocale("default", Map{
+	manager, _ := NewManager(WithLocale("default", Map{
 		"dollar": "I only have 1 dollar|I have %d dollars!!!!",
 		"time": Map{
 			"minutes": "one minute|%d minutes",
@@ -68,7 +68,7 @@ func TestManagerPluralize(t *testing.T) {
 }
 
 func TestManagerSetLocale(t *testing.T) {
-	manager := NewManager(
+	manager, _ := NewManager(
 		WithLocale("1", Map{}),
 		WithLocale("2", Map{}),
 	)
@@ -77,7 +77,9 @@ func TestManagerSetLocale(t *testing.T) {
 		t.Errorf("expected current locale to be `1`, but it was `%s`", manager.currentLocale)
 	}
 
-	manager.SetLocale("2")
+	if err := manager.SetLocale("2"); err != nil {
+		t.Errorf("expected no error, but got: %s", err)
+	}
 
 	if manager.currentLocale != "2" {
 		t.Errorf("expected current locale to be `2`, but it was `%s`", manager.currentLocale)

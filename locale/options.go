@@ -1,62 +1,53 @@
 package locale
 
 // Option ...
-type Option interface {
-	apply(m *Manager)
+type option interface {
+	apply(m *Manager) error
 }
 
 // RegisterLocaleOption ...
-type RegisterLocaleOption struct {
+type registerLocaleOption struct {
 	code         string
 	translations Map
 }
 
-func (o *RegisterLocaleOption) apply(m *Manager) {
-	m.RegisterLocale(o.code, o.translations)
+func (r *registerLocaleOption) apply(m *Manager) error {
+	if err := m.RegisterLocale(r.code, r.translations); err != nil {
+		return err
+	}
 
 	// set this as default locale, if none is set
 	if m.currentTranslator == nil {
-		m.SetLocale(o.code)
+		if err := m.SetLocale(r.code); err != nil {
+			return err
+		}
 	}
 
 	// fallback will be set to this language
 	// if it's not already set
 	if m.fallbackTranslator == nil {
-		m.SetFallbackLocale(o.code)
+		if err := m.SetFallbackLocale(r.code); err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
 // WithLocale ...
-func WithLocale(code string, translations Map) *RegisterLocaleOption {
-	return &RegisterLocaleOption{code, translations}
+func WithLocale(code string, translations Map) *registerLocaleOption {
+	return &registerLocaleOption{code, translations}
 }
 
-// FallbackLocaleOption ...
-type FallbackLocaleOption struct {
-	code         string
-	translations Map
-}
+type fallbackStringOption string
 
-func (o *FallbackLocaleOption) apply(m *Manager) {
-	m.RegisterLocale(o.code, o.translations)
-	m.SetFallbackLocale(o.code)
-}
+func (f fallbackStringOption) apply(m *Manager) error {
+	m.fallbackString = string(f)
 
-// WithFallbackLocale ...
-func WithFallbackLocale(code string, translations Map) *FallbackLocaleOption {
-	return &FallbackLocaleOption{code, translations}
-}
-
-// FallbackStringOption ...
-type FallbackStringOption struct {
-	value string
-}
-
-func (o *FallbackStringOption) apply(m *Manager) {
-	m.fallbackString = o.value
+	return nil
 }
 
 // WithFallbackString ...
-func WithFallbackString(value string) *FallbackStringOption {
-	return &FallbackStringOption{value}
+func WithFallbackString(value string) fallbackStringOption {
+	return fallbackStringOption(value)
 }

@@ -10,9 +10,9 @@ var (
 )
 
 func init() {
-	UseManager(locale.NewManager(
-		locale.WithLocale(en.Code, en.Locale),
-	))
+	m, _ := locale.NewManager(locale.WithLocale(en.Code, en.Locale))
+
+	UseManager(m)
 }
 
 // UseManager sets the global used manager to the given manager

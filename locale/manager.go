@@ -15,17 +15,19 @@ type Manager struct {
 }
 
 // NewManager ...
-func NewManager(options ...Option) *Manager {
+func NewManager(options ...option) (*Manager, error) {
 	manager := &Manager{
 		fallbackString: "",
 		translators:    map[string]*translator{},
 	}
 
-	for _, option := range options {
-		option.apply(manager)
+	for _, opt := range options {
+		if err := opt.apply(manager); err != nil {
+			return nil, err
+		}
 	}
 
-	return manager
+	return manager, nil
 }
 
 func (m *Manager) getTranslationOrFallback(path string) string {

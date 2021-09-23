@@ -82,7 +82,7 @@ func TestLocales(t *testing.T) {
 
 	for _, test := range tests {
 		// using a manager to test the paths
-		testManager := locale.NewManager(locale.WithLocale(test.code, test.locale))
+		testManager, _ := locale.NewManager(locale.WithLocale(test.code, test.locale))
 
 		for _, path := range requiredPaths {
 			if value := testManager.Translate(path); value == "" {
