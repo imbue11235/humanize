@@ -7,7 +7,7 @@ import (
 
 // Manager ...
 type Manager struct {
-	currentLocale      string
+	currentLocaleCode  string
 	currentTranslator  *translator
 	fallbackTranslator *translator
 	fallbackString     string
@@ -15,19 +15,17 @@ type Manager struct {
 }
 
 // NewManager ...
-func NewManager(options ...option) (*Manager, error) {
+func NewManager(options ...option) *Manager {
 	manager := &Manager{
 		fallbackString: "",
 		translators:    map[string]*translator{},
 	}
 
 	for _, opt := range options {
-		if err := opt.apply(manager); err != nil {
-			return nil, err
-		}
+		opt.applyTo(manager)
 	}
 
-	return manager, nil
+	return manager
 }
 
 func (m *Manager) getTranslationOrFallback(path string) string {
@@ -74,10 +72,18 @@ func (m *Manager) applyCountToTranslation(translation string, count int) string 
 	return translation
 }
 
+func (m *Manager) addTranslator(code string, translations Map) *translator {
+	translator := newTranslator(code, translations)
+
+	m.translators[code] = translator
+
+	return translator
+}
+
 // RegisterLocale ...
 func (m *Manager) RegisterLocale(code string, translations Map) error {
 	if _, ok := m.translators[code]; !ok {
-		m.translators[code] = newTranslator(code, translations)
+		m.addTranslator(code, translations)
 
 		return nil
 	}
@@ -85,10 +91,14 @@ func (m *Manager) RegisterLocale(code string, translations Map) error {
 	return fmt.Errorf("a locale with code `%s` already exists", code)
 }
 
+func (m *Manager) setFallbackTranslator(fallbackTranslator *translator) {
+	m.fallbackTranslator = fallbackTranslator
+}
+
 // SetFallbackLocale ...
 func (m *Manager) SetFallbackLocale(code string) error {
 	if foundTranslator, ok := m.translators[code]; ok {
-		m.fallbackTranslator = foundTranslator
+		m.setFallbackTranslator(foundTranslator)
 
 		return nil
 	}
@@ -96,11 +106,19 @@ func (m *Manager) SetFallbackLocale(code string) error {
 	return fmt.Errorf("could not find a locale with code `%s`", code)
 }
 
+func (m *Manager) setTranslator(nextTranslator *translator) {
+	m.currentTranslator = nextTranslator
+}
+
+func (m *Manager) setLocaleCode(code string) {
+	m.currentLocaleCode = code
+}
+
 // SetLocale ...
 func (m *Manager) SetLocale(code string) error {
 	if foundTranslator, ok := m.translators[code]; ok {
-		m.currentLocale = code
-		m.currentTranslator = foundTranslator
+		m.setLocaleCode(code)
+		m.setTranslator(foundTranslator)
 
 		return nil
 	}

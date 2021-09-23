@@ -5,7 +5,7 @@ import (
 )
 
 func TestManagerTranslate(t *testing.T) {
-	manager, _ := NewManager(WithLocale("default", Map{
+	manager := NewManager(WithLocale("default", Map{
 		"flowers": Map{
 			"rose":   "Rose",
 			"lily":   "Lily",
@@ -40,7 +40,7 @@ func TestManagerTranslate(t *testing.T) {
 }
 
 func TestManagerPluralize(t *testing.T) {
-	manager, _ := NewManager(WithLocale("default", Map{
+	manager := NewManager(WithLocale("default", Map{
 		"dollar": "I only have 1 dollar|I have %d dollars!!!!",
 		"time": Map{
 			"minutes": "one minute|%d minutes",
@@ -68,20 +68,20 @@ func TestManagerPluralize(t *testing.T) {
 }
 
 func TestManagerSetLocale(t *testing.T) {
-	manager, _ := NewManager(
+	manager := NewManager(
 		WithLocale("1", Map{}),
 		WithLocale("2", Map{}),
 	)
 
-	if manager.currentLocale != "1" {
-		t.Errorf("expected current locale to be `1`, but it was `%s`", manager.currentLocale)
+	if manager.currentLocaleCode != "1" {
+		t.Errorf("expected current locale to be `1`, but it was `%s`", manager.currentLocaleCode)
 	}
 
 	if err := manager.SetLocale("2"); err != nil {
 		t.Errorf("expected no error, but got: %s", err)
 	}
 
-	if manager.currentLocale != "2" {
-		t.Errorf("expected current locale to be `2`, but it was `%s`", manager.currentLocale)
+	if manager.currentLocaleCode != "2" {
+		t.Errorf("expected current locale to be `2`, but it was `%s`", manager.currentLocaleCode)
 	}
 }

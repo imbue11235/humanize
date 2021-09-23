@@ -2,7 +2,7 @@ package locale
 
 // Option ...
 type option interface {
-	apply(m *Manager) error
+	applyTo(m *Manager)
 }
 
 // RegisterLocaleOption ...
@@ -11,27 +11,20 @@ type registerLocaleOption struct {
 	translations Map
 }
 
-func (r *registerLocaleOption) apply(m *Manager) error {
-	if err := m.RegisterLocale(r.code, r.translations); err != nil {
-		return err
-	}
+func (r *registerLocaleOption) applyTo(m *Manager) {
+	addedTranslator := m.addTranslator(r.code, r.translations)
 
 	// set this as default locale, if none is set
 	if m.currentTranslator == nil {
-		if err := m.SetLocale(r.code); err != nil {
-			return err
-		}
+		m.setLocaleCode(r.code)
+		m.setTranslator(addedTranslator)
 	}
 
 	// fallback will be set to this language
 	// if it's not already set
 	if m.fallbackTranslator == nil {
-		if err := m.SetFallbackLocale(r.code); err != nil {
-			return err
-		}
+		m.setFallbackTranslator(addedTranslator)
 	}
-
-	return nil
 }
 
 // WithLocale ...
@@ -41,10 +34,8 @@ func WithLocale(code string, translations Map) *registerLocaleOption {
 
 type fallbackStringOption string
 
-func (f fallbackStringOption) apply(m *Manager) error {
+func (f fallbackStringOption) applyTo(m *Manager) {
 	m.fallbackString = string(f)
-
-	return nil
 }
 
 // WithFallbackString ...

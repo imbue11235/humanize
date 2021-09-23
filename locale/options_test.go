@@ -3,19 +3,15 @@ package locale
 import "testing"
 
 func TestWithLocale(t *testing.T) {
-	manager, _ := NewManager()
+	manager := NewManager()
 
 	localeMap := Map{
 		"test": "123",
 	}
 
-	localeOption := WithLocale("test", localeMap)
+	WithLocale("test", localeMap).applyTo(manager)
 
-	if err := localeOption.apply(manager); err != nil {
-		t.Errorf("Expected no error, but got: %s", err)
-	}
-
-	if manager.currentLocale != "test" {
+	if manager.currentLocaleCode != "test" {
 		t.Error("expected current locale to be `test`")
 	}
 
@@ -29,13 +25,9 @@ func TestWithLocale(t *testing.T) {
 }
 
 func TestWithFallbackString(t *testing.T) {
-	manager, _ := NewManager()
+	manager := NewManager()
 
-	fallbackOption := WithFallbackString("hey")
-
-	if err := fallbackOption.apply(manager); err != nil {
-		t.Errorf("expected no error, but got: %s", err)
-	}
+	WithFallbackString("hey").applyTo(manager)
 
 	if manager.fallbackString != "hey" {
 		t.Errorf("expected fallback string to be `hey`, but got %s", manager.fallbackString)
