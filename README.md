@@ -46,7 +46,7 @@ fmt.Printf("The file was created %s", humanize.Time(a).FromNow()) // => The file
 
 ##### Time to _x_
 
-The same as [From](#time-from-x), but the opposite time difference.
+The same as [humanize.From](#time-from-x), but the opposite time difference.
 
 ```go
 a := time.Parse(..., "2020-01-01")
@@ -57,7 +57,7 @@ fmt.Printf("It will happen %s", humanize.Time(a).To(b)) // => It will happen in 
 
 ##### Time to now
 
-A utility function like [FromNow](#time-from-now), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
+A utility function like [humanize.FromNow](#time-from-now), which is like calling `Time(a).To(b)` where `b` is set to `time.Now()`
 
 ```go
 a := time.Parse(..., "2021-05-05 22:10:00")
@@ -92,7 +92,7 @@ fmt.Printf("The file was deleted %s", humanize.ExactTime(a).FromNow()) // => The
 
 ##### Exact time to _x_
 
-The same as [From](#exact-time-from-x), but the opposite time difference.
+The same as [humanize.From](#exact-time-from-x), but the opposite time difference.
 
 ```go
 a := time.Parse(..., "2021-05-03 15:00:00")
@@ -103,7 +103,7 @@ fmt.Printf("It's my birthday %s", humanize.ExactTime(a).To(b)) // => It's my bir
 
 ##### Exact time to now
 
-A utility function like [FromNow](#exact-time-from-now), which is like calling `ExactTime(a).To(b)` where `b` is set to `time.Now()`
+A utility function like [humanize.FromNow](#exact-time-from-now), which is like calling `ExactTime(a).To(b)` where `b` is set to `time.Now()`
 
 ```go
 a := time.Parse(..., "2021-03-02 12:00:33")
@@ -335,7 +335,7 @@ humanize.Int(15600000) // => 15.6 million
 
 #### Including symbol
 
-Does the same as [Int](#int), but returns the symbol identifier, rather than the fully translated suffix. E.g. `million = M`
+Does the same calculations as [humanize.Int](#int), but returns the symbol identifier, rather than the fully translated suffix. E.g. `million = M`
 
 ```go
 fmt.Printf("I have $%s on my bank account", humanize.IntWithSymbol(785030)) // => I have $785K on my bank account
