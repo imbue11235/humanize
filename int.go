@@ -8,12 +8,16 @@ import (
 
 var suffixes = []string{"K", "M", "B", "T", "Q", "Qi", "Sx", "Sp", "O"}
 
-// Int ...
+// Int converts an integer into a readable string representation,
+// rounding the volume and adding the "name" of the number as a suffix
+// e.g. 1000000 = 1 million
 func Int(value uint64) string {
 	return formatInt(value, true)
 }
 
-// IntWithSymbol ...
+// IntWithSymbol converts an integer into a readable string representation,
+// rounding the volume and adding the "symbol" of the number as a suffix
+// e.g. 1000000 = 1M
 func IntWithSymbol(value uint64) string {
 	return formatInt(value, false)
 }

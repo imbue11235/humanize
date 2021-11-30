@@ -9,13 +9,14 @@ import (
 
 type timeHumanizerFunc func(from, to time.Time) string
 
-// TimeBuilder ...
+// TimeBuilder is a struct to build a time query
 type TimeBuilder struct {
 	origin        time.Time
 	timeHumanizer timeHumanizerFunc
 }
 
-// Time ...
+// Time creates a time builder using estimation as a
+// humanizer
 func Time(origin time.Time) *TimeBuilder {
 	return &TimeBuilder{
 		origin:        origin,
@@ -23,7 +24,8 @@ func Time(origin time.Time) *TimeBuilder {
 	}
 }
 
-// ExactTime ...
+// ExactTime creates a time builder using exact difference
+// as a humanizer
 func ExactTime(origin time.Time) *TimeBuilder {
 	return &TimeBuilder{
 		origin:        origin,
@@ -31,7 +33,9 @@ func ExactTime(origin time.Time) *TimeBuilder {
 	}
 }
 
-// Duration ...
+// Duration converts a duration into a string
+// representation, loosely estimating the duration
+// e.g. 1 month and 2 days = 1 month
 func Duration(duration time.Duration) string {
 	// find the closest estimated "time distance" from given difference
 	estimation := era.DurationToEstimation(duration)
@@ -40,27 +44,33 @@ func Duration(duration time.Duration) string {
 	return pluralize(path, estimation.Volume)
 }
 
-// ExactDuration ...
+// ExactDuration converts a duration into a string
+// representation, calculating the exact duration
+// e.g. 28 hours = 1 day and 4 hours
 func ExactDuration(duration time.Duration) string {
 	return concatResults("time.precision", era.DurationToPreciseTimeUnits(duration))
 }
 
-// From ...
+// From defines the `origin` time
+// on the time builder
 func (t *TimeBuilder) From(from time.Time) string {
 	return t.humanize(from, t.origin)
 }
 
-// FromNow ...
+// FromNow is a utility function, which is like calling
+// `Time(a).From(b)`, but where `b` is automatically set to `time.Now()`
 func (t *TimeBuilder) FromNow() string {
 	return t.From(time.Now())
 }
 
-// To ...
+// To defines the `destination` time
+// on the time builder
 func (t *TimeBuilder) To(to time.Time) string {
 	return t.humanize(t.origin, to)
 }
 
-// ToNow ...
+// ToNow is a utility function, which is like calling
+// `Time(a).To(b)`, but where `b` is automatically set to `time.Now()`
 func (t *TimeBuilder) ToNow() string {
 	return t.To(time.Now())
 }

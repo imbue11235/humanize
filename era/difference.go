@@ -9,7 +9,8 @@ var (
 	differenceSymbols = []Symbol{SymbolYear, SymbolMonth, SymbolDay, SymbolHour, SymbolMinute, SymbolSecond}
 )
 
-// Difference ...
+// Difference finds the difference
+// between two given times
 func Difference(from, to time.Time) []*Result {
 	return convertToResults(difference(from, to))
 }

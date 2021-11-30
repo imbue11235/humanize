@@ -6,16 +6,16 @@ import (
 )
 
 func TestTimeInterval(t *testing.T) {
-	now := time.Now()
+	now := time.Date(2020, 12, 2, 0, 0, 0, 0, time.UTC)
 	tests := []struct {
 		from, to time.Time
 		expected []int
 	}{
 		{now, now.Add(24 * time.Hour), []int{0, 0, 1, 0, 0, 0}},
-		{now, now.Add(35 * day), []int{0, 1, 5, 0, 0, 0}},
+		{now, now.Add(35 * day), []int{0, 1, 4, 0, 0, 0}},
 		{now, now.Add(28 * day), []int{0, 0, 28, 0, 0, 0}},
 		{now, now.Add(-28 * day), []int{0, 0, 28, 0, 0, 0}},
-		{now, now.Add(-32 * day), []int{0, 1, 1, 0, 0, 0}},
+		{now, now.Add(-32 * day), []int{0, 1, 2, 0, 0, 0}},
 	}
 
 	for _, test := range tests {

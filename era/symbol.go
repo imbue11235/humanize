@@ -1,9 +1,9 @@
 package era
 
-// Symbol ...
+// Symbol type of time units
 type Symbol string
 
-// Second ...
+// SymbolSecond ...
 const (
 	SymbolSecond Symbol = "s"
 	SymbolMinute Symbol = "m"
@@ -16,7 +16,8 @@ const (
 	SymbolLong   Symbol = "l"
 )
 
-// String ...
+// String returns the string
+// representation of the string
 func (s Symbol) String() string {
 	return string(s)
 }

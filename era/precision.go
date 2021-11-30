@@ -14,7 +14,8 @@ var preciseThresholds = []threshold{
 	{SymbolSecond, second},
 }
 
-// DurationToPreciseTimeUnits ...
+// DurationToPreciseTimeUnits calculates a precise time
+// units from a duration
 func DurationToPreciseTimeUnits(duration time.Duration) []*Result {
 	delta := absDuration(duration).Seconds()
 	var results []*Result
