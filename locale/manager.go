@@ -2,7 +2,6 @@ package locale
 
 import (
 	"fmt"
-	"strings"
 )
 
 // Manager ...
@@ -41,6 +40,23 @@ func (m *Manager) getTranslationOrFallback(path string) string {
 	return translation
 }
 
+func (m *Manager) getPluralizationOrFallback(path string, count int) string {
+	pluralizer, err := m.currentTranslator.getPluralizer(path)
+
+	if err != nil {
+		// at this point, we will try to use the fallback translator
+		// and as a last option, falling back to the default fallback string
+		// if everything else fails
+		pluralizer, err = m.fallbackTranslator.getPluralizer(path)
+
+		if err != nil {
+			return m.getTranslationOrFallback(path)
+		}
+	}
+
+	return pluralizer.apply(count)
+}
+
 // Translate ...
 func (m *Manager) Translate(path string, args ...interface{}) string {
 	translation := m.getTranslationOrFallback(path)
@@ -54,22 +70,7 @@ func (m *Manager) Translate(path string, args ...interface{}) string {
 
 // Pluralize ...
 func (m *Manager) Pluralize(path string, count int) string {
-	translation := m.getTranslationOrFallback(path)
-	parts := strings.Split(translation, pluralSeparator)
-
-	if count != 1 && len(parts) > 1 {
-		return m.applyCountToTranslation(parts[1], count)
-	}
-
-	return parts[0]
-}
-
-func (m *Manager) applyCountToTranslation(translation string, count int) string {
-	if strings.Contains(translation, "%d") {
-		return fmt.Sprintf(translation, count)
-	}
-
-	return translation
+	return m.getPluralizationOrFallback(path, count)
 }
 
 func (m *Manager) addTranslator(code string, translations Map) *translator {
