@@ -41,9 +41,9 @@ func TestManagerTranslate(t *testing.T) {
 
 func TestManagerPluralize(t *testing.T) {
 	manager := NewManager(WithLocale("default", Map{
-		"dollar": "I only have 1 dollar|I have %d dollars!!!!",
+		"dollar": "[1] I only have 1 dollar|[2-*] I have %d dollars!!!!",
 		"time": Map{
-			"minutes": "one minute|%d minutes",
+			"minutes": "[1] one minute|[2-*] %d minutes",
 		},
 		"normal": "Everything is normal",
 	}))
@@ -58,6 +58,7 @@ func TestManagerPluralize(t *testing.T) {
 		{"time.minutes", "2 minutes", 2},
 		{"normal", "Everything is normal", 1},
 		{"normal", "Everything is normal", 100},
+		{"none.existing.path", "", 1},
 	}
 
 	for _, test := range tests {
@@ -90,21 +91,22 @@ func TestManagerSetLocale(t *testing.T) {
 	}
 }
 
-func TestManagerApplyCountToTranslation(t *testing.T) {
+func TestManagerRegisterLocale(t *testing.T) {
 	manager := NewManager()
 
-	tests := []struct {
-		text     string
-		count    int
-		expected string
-	}{
-		{"%d bananas", 55, "55 bananas"},
-		{"1 banana", 55, "1 banana"},
+	if err := manager.RegisterLocale("1", Map{}); err != nil {
+		t.Errorf("expected no error, but got: %s", err)
 	}
 
-	for _, test := range tests {
-		if actual := manager.applyCountToTranslation(test.text, test.count); actual != test.expected {
-			t.Errorf("expected `%s`, but got `%s`", test.expected, actual)
-		}
+	if err := manager.RegisterLocale("1", Map{}); err == nil {
+		t.Error("expected error, but got none")
+	}
+}
+
+func TestManagerSetFallbackLocale(t *testing.T) {
+	manager := NewManager()
+
+	if err := manager.SetFallbackLocale("1"); err == nil {
+		t.Error("expected error, but got none")
 	}
 }
