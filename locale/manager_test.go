@@ -58,6 +58,7 @@ func TestManagerPluralize(t *testing.T) {
 		{"time.minutes", "2 minutes", 2},
 		{"normal", "Everything is normal", 1},
 		{"normal", "Everything is normal", 100},
+		{"none.existing.path", "", 1},
 	}
 
 	for _, test := range tests {
@@ -86,6 +87,26 @@ func TestManagerSetLocale(t *testing.T) {
 	}
 
 	if err := manager.SetLocale("none"); err == nil {
+		t.Error("expected error, but got none")
+	}
+}
+
+func TestManagerRegisterLocale(t *testing.T) {
+	manager := NewManager()
+
+	if err := manager.RegisterLocale("1", Map{}); err != nil {
+		t.Errorf("expected no error, but got: %s", err)
+	}
+
+	if err := manager.RegisterLocale("1", Map{}); err == nil {
+		t.Error("expected error, but got none")
+	}
+}
+
+func TestManagerSetFallbackLocale(t *testing.T) {
+	manager := NewManager()
+
+	if err := manager.SetFallbackLocale("1"); err == nil {
 		t.Error("expected error, but got none")
 	}
 }
