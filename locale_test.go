@@ -7,6 +7,7 @@ import (
 	"github.com/imbue11235/humanize/locale/da"
 	"github.com/imbue11235/humanize/locale/de"
 	"github.com/imbue11235/humanize/locale/en"
+	"github.com/imbue11235/humanize/locale/ar"
 )
 
 func TestLocaleManager(t *testing.T) {
@@ -47,6 +48,7 @@ func TestLocales(t *testing.T) {
 		{"en", en.Locale},
 		{"da", da.Locale},
 		{"de", de.Locale},
+		{"ar", ar.Locale},
 	}
 
 	requiredPaths := []string{
