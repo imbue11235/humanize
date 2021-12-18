@@ -9,7 +9,7 @@ var Code = "ar"
 var Locale = locale.Map{
 	"slice": locale.Map{
 		"connector": "و",
-		"rest": "[1] واحد آخر‎ | [2-*] آخرون‎ %d ",
+		"rest": "[1] واحد آخر‎ | [2-*] آخرين‎ %d ",
 	},
 	"time": locale.Map{
 		"now": "الآن",
