@@ -401,6 +401,7 @@ humanize.SetFallbackLocale("my-fallback-locale")
 
 Currently, the following locales are included in the `humanize` package:
 
+- [Arabic](locale/ar/locale.go) - Thanks [@MohammadSaad1](https://github.com/MohammadSaad1)
 - [Danish](locale/da/locale.go)
 - [English](locale/en/locale.go)
 - [German](locale/de/locale.go)
@@ -412,7 +413,6 @@ It would be greatly appreciated and help the package become even more usable acr
 
 List of wanted locales:
 
-- [ ] Arabic
 - [ ] Dutch
 - [ ] Finnish
 - [ ] French
